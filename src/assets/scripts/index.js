@@ -126,10 +126,7 @@ secondHand.style.setProperty(
 );
 
 minutes = dmy.getMinutes();
-minuteHand.style.setProperty(
-	"--rotate",
-	(minutes + seconds / 60) * 6 + "deg",
-);
+minuteHand.style.setProperty("--rotate", (minutes + seconds / 60) * 6 + "deg");
 
 hourHand.style.setProperty(
 	"--rotate",
