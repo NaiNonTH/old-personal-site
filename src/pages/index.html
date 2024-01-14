@@ -1,0 +1,72 @@
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="../assets/styles/global.css" />
+		<link rel="stylesheet" href="../assets/styles/pages.css" />
+		<style id="updates">
+			#updates,
+			#todos {
+				max-height: 12rem;
+				overflow-y: auto;
+			}
+			h3 {
+				margin: 0;
+				font-style: italic;
+				font-size: 0.9rem;
+				text-align: right;
+
+				display: flex;
+				align-items: center;
+				flex-direction: row;
+				gap: 0.5rem;
+			}
+			h3::before {
+				content: "";
+
+				flex-grow: 1;
+				background: currentColor;
+				height: 1px;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<h1>Welcome!</h1>
+			<p>
+				Welcome to my simple and <strong>very</strong> personal site. Enjoy
+				surfing!
+			</p>
+		</section>
+		<div class="grid-column">
+			<section>
+				<h2>!! Disclaimer</h2>
+				<p>This site isn't made for ancient browsers such as IE.</p>
+			</section>
+			<section>
+				<h2>Button</h2>
+				<p>If you like my site, you can add my button to your site!</p>
+			</section>
+			<section id="updates">
+				<h2>Updates</h2>
+				<h3><time datetime="2024-01-10">10/1/2024</time></h3>
+				<ul>
+					<li>First release! :&rpar;</li>
+				</ul>
+			</section>
+			<section id="todos">
+				<h2>Todos</h2>
+				<ul>
+					<li>Add diary</li>
+					<li>Make daytime mode</li>
+				</ul>
+			</section>
+		</div>
+		<section>
+			<h2>You can 🥫...</h2>
+			<ul>
+				<li>Check Navigation sidebar to the left.</li>
+				<li>Change some settings for the better accessibility.</li>
+				<li>chill</li>
+			</ul>
+		</section>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+{
+	"name": "personal-site",
+	"version": "1.0.0",
+	"description": "A personal site of NaiNonTheN00b1",
+	"private": "true",
+	"scripts": {
+		"host": "cd ./src && npx localhost",
+		"sass": "cd ./src/assets && sass --watch styles/sass:styles",
+		"lint": "npx prettier --check .",
+		"format": "npx prettier . --write",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"license": "ARR",
+	"dependencies": {
+		"localhost": "^0.4.1",
+		"prettier": "^3.1.1"
+	}
+}

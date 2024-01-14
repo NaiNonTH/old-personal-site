@@ -1,0 +1,246 @@
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="../../assets/styles/global.css" />
+		<link rel="stylesheet" href="../../assets/styles/pages.css" />
+		<style>
+			#field {
+				position: relative;
+				margin: 0 auto;
+				max-width: 10cm;
+				aspect-ratio: 3 / 4;
+				border: 1px solid rgba(var(--cl-paragraph-secondary));
+			}
+			#field.win {
+				border-color: lime;
+			}
+			#field.lose {
+				border-color: red;
+			}
+			#field.ultimate-win {
+				animation: ssr 1s linear infinite;
+			}
+			#click {
+				text-align: center;
+			}
+			.player,
+			.cuck,
+			.crush,
+			.crush::after {
+				position: absolute;
+				border-radius: 50%;
+			}
+			.player,
+			.cuck,
+			.crush {
+				transform: translate(-50%, -50%);
+				animation: fadeIn 0.35s;
+				transition:
+					top 0.35s,
+					left 0.35s;
+			}
+			.player,
+			.cuck,
+			.crush::after {
+				width: 10px;
+				height: 10px;
+			}
+			.player {
+				background: lightskyblue;
+			}
+			.cuck {
+				background: green;
+			}
+			.crush {
+				width: 50px;
+				height: 50px;
+				border: 1px dashed rgba(var(--cl-paragraph-secondary));
+			}
+			.crush::after {
+				content: "";
+				inset: 0;
+				margin: auto;
+				background: pink;
+			}
+			@keyframes ssr {
+				0%,
+				100% {
+					border-color: hsl(0, 100%, 50%);
+				}
+				16% {
+					border-color: hsl(60, 100%, 50%);
+				}
+				32% {
+					border-color: hsl(120, 100%, 50%);
+				}
+				48% {
+					border-color: hsl(180, 100%, 50%);
+				}
+				64% {
+					border-color: hsl(240, 100%, 50%);
+				}
+				90% {
+					border-color: hsl(300, 100%, 50%);
+				}
+			}
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<section id="game">
+			<h1>Destiny</h1>
+			<p id="click">
+				Touch or click somewhere in the field to start.
+				<a href="#how-to-play">See How to play</a>
+			</p>
+			<div id="field"></div>
+			<p style="text-align: center">
+				<a href="history.html">History</a>
+			</p>
+		</section>
+		<section id="how-to-play">
+			<h2>How to play</h2>
+			<p>You start by clicking anywhere in the game field.</p>
+			<p>There will be 3 balls after you've clicked:</p>
+			<ul>
+				<li>The <span style="color: lightskyblue">Blue</span> ball is you.</li>
+				<li>The <span style="color: pink">Pink</span> ball is crush.</li>
+				<li>The <span style="color: green">Green</span> ball is cuck.</li>
+			</ul>
+			<p>
+				Once the ball has finished appearing or moving, you can click again to
+				change the ball position, and the rest will reposition themself as well,
+				just like the first step. Repeat this process until the game ends.
+			</p>
+			<p>
+				If you can get into the white-dashed circle around the Pink ball first,
+				you win.
+			</p>
+			<p>But if it's the Green ball, you lose.</p>
+		</section>
+		<script>
+			let playerX,
+				crushX,
+				cuckX,
+				playerY,
+				crushY,
+				cuckY,
+				player,
+				cuck,
+				crush,
+				playerWins,
+				cuckWins,
+				ended = false,
+				inProgress = false,
+				firstGame = true,
+				date,
+				status,
+				clicks = 0,
+				cheats;
+
+			const field = document.getElementById("field");
+			const clickOutput = document.getElementById("click");
+
+			field.addEventListener("click", (evt) => {
+				if (inProgress || ended) return;
+
+				inProgress = true;
+
+				playerX = evt.clientX - evt.currentTarget.offsetLeft;
+				playerY = evt.clientY - evt.currentTarget.offsetTop;
+
+				cuckX = Math.floor(Math.random() * evt.currentTarget.offsetWidth);
+				cuckY = Math.floor(Math.random() * evt.currentTarget.offsetHeight);
+
+				cheats = JSON.parse(localStorage.getItem("noobyone-cheat"));
+				crushX =
+					cheats?.beRich && !firstGame
+						? playerX - 10
+						: Math.floor(Math.random() * evt.currentTarget.offsetWidth);
+				crushY =
+					cheats?.beRich && !firstGame
+						? playerY - 10
+						: Math.floor(Math.random() * evt.currentTarget.offsetHeight);
+
+				if (firstGame) {
+					player = document.createElement("span");
+					player.className = "player";
+
+					crush = document.createElement("span");
+					crush.className = "crush";
+
+					cuck = document.createElement("span");
+					cuck.className = "cuck";
+
+					field.append(player, crush, cuck);
+					firstGame = false;
+				}
+
+				player.style.left = playerX + "px";
+				player.style.top = playerY + "px";
+
+				cuck.style.left = cuckX + "px";
+				cuck.style.top = cuckY + "px";
+
+				crush.style.left = crushX + "px";
+				crush.style.top = crushY + "px";
+
+				clicks++;
+
+				clickOutput.innerText = clicks;
+
+				setTimeout(() => {
+					inProgress = false;
+
+					playerWins =
+						Math.abs(crushX - playerX) <= 25 &&
+						Math.abs(crushY - playerY) <= 25;
+					cuckWins =
+						Math.abs(crushX - cuckX) <= 25 && Math.abs(crushY - cuckY) <= 25;
+
+					if (playerWins && cuckWins) {
+						ended = true;
+						field.classList.add("ultimate-win");
+						clickOutput.innerText = "WHAT ARE THE CHANCES????";
+
+						status = "U";
+					} else if (playerWins) {
+						ended = true;
+						field.classList.add("win");
+						clickOutput.innerText = "You win!";
+
+						status = "W";
+					} else if (cuckWins) {
+						ended = true;
+						field.classList.add("lose");
+						clickOutput.innerText = "You lose!";
+
+						status = "L";
+					}
+
+					if (ended) {
+						cheats = Boolean(cheats);
+						date = new Date();
+
+						const localLeaderboard =
+							JSON.parse(localStorage.getItem("noobyone-destinyleaderboard")) ||
+							[];
+
+						localLeaderboard.push({ date, status, clicks, cheats });
+
+						localStorage.setItem(
+							"noobyone-destinyleaderboard",
+							JSON.stringify(localLeaderboard),
+						);
+					}
+				}, 350);
+			});
+		</script>
+	</body>
+</html>

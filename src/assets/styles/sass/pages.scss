@@ -1,0 +1,26 @@
+@use "./mixins" as *;
+
+body {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 0;
+
+	&.loaded section {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+section {
+	@extend %component-box;
+
+	opacity: 0;
+	transform: translateY(-50px);
+	transition:
+		transform 0.35s var(--delay),
+		opacity 0.35s var(--delay);
+
+	h1 {
+		font-size: 2em;
+	}
+}

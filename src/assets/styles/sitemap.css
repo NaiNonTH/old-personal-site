@@ -1,0 +1,30 @@
+ul {
+  margin: 0;
+  line-height: 1.5rem;
+  position: relative;
+  list-style: none;
+  padding-left: 1rem;
+}
+ul li {
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  position: relative;
+}
+ul li::before {
+  content: "";
+  width: 1px;
+  height: 1.75rem;
+  border-left: 1px dashed currentColor;
+  position: absolute;
+  top: -0.75rem;
+}
+ul li::after {
+  content: "";
+  width: 1rem;
+  height: 2px;
+  border-bottom: 1px dashed currentColor;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+}
+
+/*# sourceMappingURL=sitemap.css.map */

@@ -1,0 +1,48 @@
+section {
+  background: rgba(18, 18, 18, 0.75);
+  border-radius: 15px;
+  padding: 1.25rem;
+  border: 2px solid rgb(55, 55, 55);
+  color: rgba(var(--cl-paragraph-secondary));
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+section :is(h1, h2, h3, h4, h5, h6) {
+  color: rgba(var(--cl-heading-secondary));
+}
+section :is(h1, h2, h3, h4, h5, h6, p, ul):first-child {
+  margin-top: 0;
+}
+section :is(h1, h2, h3, h4, h5, h6, p, ul):last-child {
+  margin-bottom: 0;
+}
+section:target {
+  box-shadow: 0 0 5px 1px rgba(var(--cl-heading-secondary));
+  border: 2px solid rgba(var(--cl-heading-secondary));
+}
+section::-webkit-scrollbar-thumb {
+  border-block: 15px solid transparent;
+  background-clip: content-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+}
+body.loaded section {
+  opacity: 1;
+  transform: scale(1);
+}
+
+section {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: transform 0.35s var(--delay), opacity 0.35s var(--delay);
+}
+section h1 {
+  font-size: 2em;
+}
+
+/*# sourceMappingURL=pages.css.map */
