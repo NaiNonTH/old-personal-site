@@ -155,3 +155,11 @@ table {
 		flex-grow: 1;
 	}
 }
+*::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+
+	&-thumb {
+		background-color: rgba(var(--cl-heading-secondary));
+	}
+}

@@ -191,4 +191,12 @@ table td {
   flex-grow: 1;
 }
 
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--cl-heading-secondary));
+}
+
 /*# sourceMappingURL=global.css.map */

@@ -358,12 +358,3 @@ footer {
 		transform: translate(-50%) rotate(calc(var(--rotate) + 1turn));
 	}
 }
-
-*::-webkit-scrollbar {
-	width: 5px;
-	height: 5px;
-
-	&-thumb {
-		background-color: rgba(var(--cl-heading-secondary));
-	}
-}
