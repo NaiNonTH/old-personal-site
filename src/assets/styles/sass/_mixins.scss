@@ -1,5 +1,5 @@
 %component-box {
-	background: rgba(18, 18, 18, 0.75);
+	background: rgba(var(--bg-secondary), 0.75);
 	border-radius: 15px;
 	padding: 1.25rem;
 	border: 2px solid rgba(55, 55, 55);

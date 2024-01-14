@@ -7,20 +7,6 @@
 			#leaderboard tr {
 				position: relative;
 			}
-			#leaderboard tr.removed::after {
-				content: "Score deleted";
-				position: absolute;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				z-index: 1;
-
-				padding: 0.5rem 1rem;
-				background: rgb(255, 160, 160);
-				color: red;
-				border: 1px solid currentColor;
-			}
 			#leaderboard tr button {
 				position: absolute;
 				right: 0;
@@ -31,9 +17,6 @@
 			}
 			#leaderboard tr button::after {
 				content: "X";
-			}
-			#leaderboard tr:not(.removed):hover button {
-				display: block;
 			}
 		</style>
 	</head>

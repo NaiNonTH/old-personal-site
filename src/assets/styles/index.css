@@ -1,5 +1,5 @@
 header, aside > *, footer, #sites-buttons {
-  background: rgba(18, 18, 18, 0.75);
+  background: rgba(var(--bg-secondary), 0.75);
   border-radius: 15px;
   padding: 1.25rem;
   border: 2px solid rgb(55, 55, 55);
@@ -134,6 +134,10 @@ aside h3::before {
   flex-grow: 1;
   background: currentColor;
   height: 1px;
+}
+aside::-webkit-scrollbar-thumb {
+  border-inline: 1rem solid transparent;
+  background-clip: content-box;
 }
 
 main {
@@ -316,6 +320,7 @@ footer {
   --rotate: 0deg;
   width: 3px;
   z-index: 2;
+  animation: clockHandSpin 60s linear infinite;
 }
 #second-hand::after {
   height: 100%;
@@ -326,6 +331,7 @@ footer {
   --rotate: 0deg;
   width: 6px;
   z-index: 1;
+  animation: clockHandSpin 3600s linear infinite;
 }
 #minute-hand::after {
   height: 85%;
@@ -335,12 +341,21 @@ footer {
 #hour-hand {
   --rotate: 0deg;
   width: 10px;
+  animation: clockHandSpin 86400s linear infinite;
 }
 #hour-hand::after {
   height: 55%;
   background: rgb(240, 240, 240);
 }
 
+@keyframes clockHandSpin {
+  from {
+    transform: translate(-50%) rotate(calc(var(--rotate)));
+  }
+  to {
+    transform: translate(-50%) rotate(calc(var(--rotate) + 1turn));
+  }
+}
 *::-webkit-scrollbar {
   width: 5px;
   height: 5px;
