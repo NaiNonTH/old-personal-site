@@ -139,6 +139,8 @@
 				ended = false,
 				inProgress = false,
 				firstGame = true,
+
+				id = "",
 				date,
 				status,
 				clicks = 0,
@@ -155,17 +157,24 @@
 				playerX = evt.clientX - evt.currentTarget.offsetLeft;
 				playerY = evt.clientY - evt.currentTarget.offsetTop;
 
-				cuckX = Math.floor(Math.random() * evt.currentTarget.offsetWidth);
-				cuckY = Math.floor(Math.random() * evt.currentTarget.offsetHeight);
-
 				cheats = JSON.parse(localStorage.getItem("noobyone-cheat"));
+				
 				crushX =
 					cheats?.beRich && !firstGame
-						? playerX - 10
-						: Math.floor(Math.random() * evt.currentTarget.offsetWidth);
+					? playerX - 10
+					: Math.floor(Math.random() * evt.currentTarget.offsetWidth);
 				crushY =
 					cheats?.beRich && !firstGame
-						? playerY - 10
+					? playerY - 10
+					: Math.floor(Math.random() * evt.currentTarget.offsetHeight);
+				
+				cuckX =
+					cheats?.ntr && !firstGame
+						? crushX - 10
+						: Math.floor(Math.random() * evt.currentTarget.offsetWidth);
+				cuckY = 
+					cheats?.ntr && !firstGame
+						? crushY - 10
 						: Math.floor(Math.random() * evt.currentTarget.offsetHeight);
 
 				if (firstGame) {
@@ -225,14 +234,22 @@
 					}
 
 					if (ended) {
+						const ascii = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+						let i;
+
+						for (i = 0; i < 8; i++) {
+							id += ascii[Math.floor(Math.random() * ascii.length)];
+						}
+
 						cheats = Boolean(cheats);
 						date = new Date();
+
 
 						const localLeaderboard =
 							JSON.parse(localStorage.getItem("noobyone-destinyleaderboard")) ||
 							[];
 
-						localLeaderboard.push({ date, status, clicks, cheats });
+						localLeaderboard.push({ id, date, status, clicks, cheats });
 
 						localStorage.setItem(
 							"noobyone-destinyleaderboard",
