@@ -134,6 +134,10 @@ aside {
 			height: 1px;
 		}
 	}
+	&::-webkit-scrollbar-thumb {
+		border-inline: 1rem solid transparent;
+		background-clip: content-box;
+	}
 }
 main {
 	grid-area: m;
@@ -316,6 +320,7 @@ footer {
 
 	width: 3px;
 	z-index: 2;
+	animation: clockHandSpin 60s linear infinite;
 
 	&::after {
 		height: 100%;
@@ -327,6 +332,7 @@ footer {
 
 	width: 6px;
 	z-index: 1;
+	animation: clockHandSpin 3600s linear infinite;
 
 	&::after {
 		height: 85%;
@@ -337,10 +343,19 @@ footer {
 	--rotate: 0deg;
 
 	width: 10px;
+	animation: clockHandSpin 86400s linear infinite;
 
 	&::after {
 		height: 55%;
 		background: rgba(240, 240, 240);
+	}
+}
+@keyframes clockHandSpin {
+	from {
+		transform: translate(-50%) rotate(calc(var(--rotate)));
+	}
+	to {
+		transform: translate(-50%) rotate(calc(var(--rotate) + 1turn));
 	}
 }
 

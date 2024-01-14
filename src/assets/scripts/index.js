@@ -95,7 +95,7 @@ const splashTexts = [
 	"MAMAAAAAA!?!?",
 	"Fuck the wars.",
 	"Imagine the world where everyone gives the other respect; It would be so awesome! :)",
-	"Inspired by <a href='https://cinni.net'>cinni.net</a> and <a href='https://lostlove.neocities.org'>lunospace</a>.",
+	"Inspired by <a href='https://cinni.net'>cinni.net</a>, <a href='https://lostlove.neocities.org'>lunospace</a>, and <a href='https://shishka.neocities.org/nofollow'>No follow</a>.",
 ];
 
 document
@@ -117,23 +117,21 @@ const hourHand = document.getElementById("hour-hand");
 
 let dmy, seconds, minutes;
 
-setInterval(() => {
-	dmy = new Date();
+dmy = new Date();
 
-	seconds = dmy.getSeconds();
-	secondHand.style.setProperty(
-		"--rotate",
-		(seconds + dmy.getMilliseconds() / 1000) * 6 + "deg",
-	);
+seconds = dmy.getSeconds();
+secondHand.style.setProperty(
+	"--rotate",
+	(seconds + dmy.getMilliseconds() / 1000) * 6 + "deg",
+);
 
-	minutes = dmy.getMinutes();
-	minuteHand.style.setProperty(
-		"--rotate",
-		(minutes + seconds / 60) * 6 + "deg",
-	);
+minutes = dmy.getMinutes();
+minuteHand.style.setProperty(
+	"--rotate",
+	(minutes + seconds / 60) * 6 + "deg",
+);
 
-	hourHand.style.setProperty(
-		"--rotate",
-		(dmy.getHours() - 12 + minutes / 60) * 30 + "deg",
-	);
-}, 64);
+hourHand.style.setProperty(
+	"--rotate",
+	(dmy.getHours() - 12 + minutes / 60) * 30 + "deg",
+);
