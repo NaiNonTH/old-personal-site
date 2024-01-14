@@ -32,7 +32,7 @@
 			#leaderboard tr button::after {
 				content: "X";
 			}
-			#leaderboard tr:hover button {
+			#leaderboard tr:not(.removed):hover button {
 				display: block;
 			}
 		</style>
@@ -59,7 +59,7 @@
 		</section>
 		<script>
 			const leaderboardOutput = document.getElementById("leaderboard");
-			const localLeaderboard =
+			let localLeaderboard =
 				JSON.parse(localStorage.getItem("noobyone-destinyleaderboard")) || [];
 			let i;
 
@@ -83,25 +83,31 @@
 													.padStart(2, "0")}:${date
 													.getMinutes()
 													.toString()
+													.padStart(2, "0")}:${date
+													.getSeconds()
+													.toString()
 													.padStart(2, "0")}
                     </td>
                     <td>${stat.status}</td>
                     <td>${stat.clicks}</td>
                     <td>${stat.cheats}</td>
-                `;
+                	`;
 
 					const deleteBtn = document.createElement("button");
 					deleteBtn.title = "Delete this score";
 					deleteBtn.addEventListener("click", (e) => {
+						localLeaderboard = localLeaderboard.filter((n) => n.id != stat.id)
+
 						localStorage.setItem(
 							"noobyone-destinyleaderboard",
-							JSON.stringify(localLeaderboard.splice(i, 1)),
+							JSON.stringify(localLeaderboard)
 						);
+
 						row.classList.add("removed");
 					});
 
 					row.appendChild(deleteBtn);
-					leaderboardOutput.insertAdjacentElement("afterbegin", row);
+					leaderboardOutput.appendChild(row);
 				}
 			}
 		</script>
