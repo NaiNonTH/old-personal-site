@@ -142,6 +142,7 @@ aside {
 main {
 	grid-area: m;
 	position: relative;
+	min-height: 39rem;
 
 	@media screen and (max-width: 68rem) {
 		width: 40rem;
@@ -183,6 +184,10 @@ main {
 		}
 	}
 	&.loading {
+		@media screen and (max-width: 68rem) {
+			max-height: 5rem;
+		}
+
 		iframe {
 			animation: blink 1s alternate linear infinite;
 
@@ -283,6 +288,11 @@ footer {
 	.emotes {
 		font-size: 3em;
 	}
+}
+#reloadIframe {
+	position: absolute;
+	top: 15px;
+	right: 15px;
 }
 #clock::before {
 	content: "";

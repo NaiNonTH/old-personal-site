@@ -80,8 +80,12 @@ field.addEventListener("click", (evt) => {
 		inProgress = false;
 
 		playerWins =
-			Math.abs(crushX - playerX) <= 25 && Math.abs(crushY - playerY) <= 25;
-		cuckWins = Math.abs(crushX - cuckX) <= 25 && Math.abs(crushY - cuckY) <= 25;
+			Math.sqrt(
+				Math.pow(crushX - playerX, 2) + Math.pow(crushY - playerY, 2),
+			) <= 25;
+		cuckWins =
+			Math.sqrt(Math.pow(crushX - cuckX, 2) + Math.pow(crushY - cuckY, 2)) <=
+			25;
 
 		if (playerWins && cuckWins) {
 			ended = true;

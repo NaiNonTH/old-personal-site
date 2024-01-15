@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --dyslexia-font: "Comic Sans MS", sans-serif;
+  --dyslexia-font: "Comic Neue", "Comic Sans MS", sans-serif;
   --heading-font: "Orbitron", sans-serif;
   --body-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --bg-primary: 45, 34, 61;
@@ -16,6 +16,13 @@
 *::after {
   box-sizing: border-box;
 }
+@media (prefers-reduced-motion) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
 
 html {
   color: rgb(165, 126, 223);
@@ -25,7 +32,8 @@ html.lowercase-only {
   text-transform: lowercase;
 }
 html.dyslexia-font {
-  font-family: var(--dyslexia-font);
+  --heading-font: var(--dyslexia-font);
+  --body-font: var(--dyslexia-font);
   letter-spacing: 0.075em;
 }
 html.no-blurs * {

@@ -2,6 +2,7 @@ localStorage.removeItem("noobyone-cheat");
 
 const html = document.documentElement;
 const content = document.getElementsByTagName("iframe")[0];
+const main = document.getElementsByTagName("main")[0];
 
 function toggleRootClass(className) {
 	if (html.classList.contains(className)) {
@@ -43,7 +44,7 @@ function updateContentHeight() {
 }
 
 content.onload = () => {
-	document.getElementsByTagName("main")[0].classList.remove("loading");
+	main.classList.remove("loading");
 	loadSettings(
 		content.contentDocument.documentElement,
 		"lowercase-only",
@@ -53,18 +54,8 @@ content.onload = () => {
 
 	updateContentHeight();
 
-	let i;
-	const allElement =
-		content.contentDocument.body.getElementsByTagName("section");
-
-	for (i = 0; i < allElement.length; i++) {
-		allElement[i].style.setProperty("--delay", i * 0.1 + "s");
-	}
-
-	content.contentDocument.body.classList.add("loaded");
-
 	content.contentWindow.onunload = () => {
-		document.getElementsByTagName("main")[0].classList.add("loading");
+		main.classList.add("loading");
 	};
 };
 onresize = () => updateContentHeight();
@@ -132,3 +123,7 @@ hourHand.style.setProperty(
 	"--rotate",
 	(dmy.getHours() - 12 + minutes / 60) * 30 + "deg",
 );
+
+document.getElementById("reloadIframe").onclick = () => {
+	content.contentWindow.location.reload();
+};
