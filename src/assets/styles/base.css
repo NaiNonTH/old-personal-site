@@ -1,0 +1,32 @@
+body::before, body::after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+body {
+  background: fixed no-repeat url(../images/backgrounds/main.jpg) center/cover, rgba(var(--bg-primary));
+}
+body::before {
+  content: "";
+  background: repeat linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0% 50%, rgba(0, 0, 0, 0.1) 0% 100%) top left/0.25rem 0.25rem;
+  z-index: -1;
+  animation: scrollUp 90s linear infinite;
+}
+@keyframes scrollUp {
+  from {
+    background-position-y: -100%;
+  }
+  to {
+    background-position-y: 100%;
+  }
+}
+body::after {
+  content: "";
+  z-index: -2;
+  background: linear-gradient(to bottom, rgba(var(--bg-primary), 0.5), rgba(var(--bg-primary), 0.8));
+}
+
+/*# sourceMappingURL=base.css.map */

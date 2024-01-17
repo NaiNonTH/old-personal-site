@@ -25,16 +25,7 @@ header::-webkit-scrollbar-thumb, aside > ::-webkit-scrollbar-thumb, footer::-web
   background-clip: content-box;
 }
 
-body::before, body::after {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 body {
-  background: fixed no-repeat url(../images/backgrounds/main.jpg) center/cover, rgba(var(--bg-primary));
   min-width: 20rem;
   max-width: 68rem;
   margin: 3rem auto;
@@ -43,26 +34,7 @@ body {
   grid-template-areas: "l m r" "b f .";
   gap: 1rem;
 }
-body::before {
-  content: "";
-  background: repeat linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0% 50%, rgba(0, 0, 0, 0.1) 0% 100%) top left/0.25rem 0.25rem;
-  z-index: -1;
-  animation: scrollUp 90s linear infinite;
-}
-@keyframes scrollUp {
-  from {
-    background-position-y: -100%;
-  }
-  to {
-    background-position-y: 100%;
-  }
-}
-body::after {
-  content: "";
-  z-index: -2;
-  background: linear-gradient(to bottom, rgba(var(--bg-primary), 0.5), rgba(var(--bg-primary), 0.8));
-}
-@media screen and (min-width: 40rem) {
+@media screen and (min-width: calc(68rem + 1px)) {
   body {
     padding: 0 1rem;
   }
@@ -114,6 +86,7 @@ aside.right {
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
+    flex-grow: 1;
   }
 }
 aside h2 {
@@ -143,7 +116,7 @@ aside::-webkit-scrollbar-thumb {
 main {
   grid-area: m;
   position: relative;
-  min-height: 39rem;
+  min-height: 12rem;
 }
 @media screen and (max-width: 68rem) {
   main {
@@ -219,7 +192,6 @@ footer {
 }
 
 #navigation {
-  max-width: 12rem;
   overflow-y: auto;
 }
 #navigation nav {
@@ -293,6 +265,11 @@ footer {
   top: 15px;
   right: 15px;
 }
+@media screen and (max-width: 68rem) {
+  #reloadIframe {
+    margin-right: 1rem;
+  }
+}
 
 #clock::before {
   content: "";
@@ -358,6 +335,38 @@ footer {
 #hour-hand::after {
   height: 55%;
   background: rgb(240, 240, 240);
+}
+
+#pp-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#pp-btn::before, #pp-btn::after {
+  height: 1rem;
+  background: currentColor;
+}
+#pp-btn::before {
+  content: "";
+  width: 1rem;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+#pp-btn.playing::before, #pp-btn.playing::after {
+  width: 0.35rem;
+}
+#pp-btn.playing::before {
+  margin-right: 0.1rem;
+  clip-path: none;
+}
+#pp-btn.playing::after {
+  content: "";
+  margin-left: 0.1rem;
+}
+
+#audio-volume {
+  margin: 1rem auto 0;
 }
 
 @keyframes clockHandSpin {

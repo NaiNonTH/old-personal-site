@@ -11,7 +11,7 @@
 
 	--cl-heading-secondary: 255, 130, 255;
 	--cl-paragraph-secondary: 239, 239, 239;
-	--cl-linked-anchor: 128, 204, 255;
+	--cl-interactives: 128, 204, 255;
 }
 
 *,
@@ -39,6 +39,9 @@ html {
 		-webkit-backdrop-filter: none !important;
 		backdrop-filter: none !important;
 	}
+}
+section {
+	@extend %component-box;
 }
 
 @for $i from 1 through 6 {
@@ -74,12 +77,16 @@ p {
 	line-height: 1.5em;
 }
 a {
-	color: rgba(var(--cl-linked-anchor));
+	color: rgba(var(--cl-interactives));
 	text-decoration: none;
 	border-bottom: 1px solid currentColor;
 
-	&:hover {
+	&:hover, &:focus-visible {
 		border-bottom-style: dotted;
+
+		img {
+			filter: brightness(1.2);
+		}
 	}
 }
 abbr {
@@ -95,14 +102,41 @@ button {
 	padding: 0.35rem 0.5rem;
 	border: 2px solid currentColor;
 
-	color: rgba(var(--cl-linked-anchor));
+	color: rgba(var(--cl-interactives));
 
-	&:hover {
+	&:hover, &:focus-visible {
 		color: rgba(var(--cl-heading-secondary));
 	}
 	&:active {
 		color: rgba(var(--cl-paragraph-secondary));
 	}
+}
+input[type="range"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	height: 2px;
+	background: rgba(var(--cl-paragraph-secondary));
+
+	&::-webkit-slider-thumb {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		
+		width: 10px;
+		height: 10px;
+		border: 2px solid rgba(var(--cl-interactives));
+		background: rgba(var(--bg-secondary));
+	}
+
+	&:is(:focus-visible, :hover)::-webkit-slider-thumb {
+		border: 2px solid rgba(var(--cl-heading-secondary));
+		background: rgba(var(--cl-interactives));
+	}
+}
+:is(a, button, input):focus-visible {
+	outline: 1px dashed rgba(var(--cl-paragraph-secondary));
 }
 table {
 	margin: 0 auto;
@@ -115,7 +149,7 @@ table {
 	}
 	th {
 		font-size: 1.125rem;
-		background: rgba(var(--cl-linked-anchor));
+		background: rgba(var(--cl-interactives));
 		color: rgba(var(--cl-heading-secondary));
 		text-shadow:
 			2px 0px white,
@@ -140,7 +174,7 @@ table {
 	width: 8rem;
 	height: 8rem;
 	border-radius: 50%;
-	background: url(../images/avatar.jpg) center / contain;
+	background: url(../images/me/avatar.jpg) center / contain;
 }
 .grid-column {
 	display: grid;

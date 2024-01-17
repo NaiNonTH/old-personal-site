@@ -3,121 +3,44 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/styles/pages.css" />
+		<link rel="stylesheet" href="assets/styles/base.css" />
+		<link rel="stylesheet" href="assets/styles/global.css" />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Orbitron:wght@700&display=swap"
 			rel="stylesheet"
 		/>
-		<title>?</title>
 		<style>
-			body {
-				margin: 0;
-				min-height: 100vh;
-				background: repeat
-					linear-gradient(
-						to bottom,
-						rgba(20, 20, 20),
-						rgba(45, 45, 45),
-						rgba(20, 20, 20)
-					)
-					top left / 800px 800px;
-				color: #efefef;
-				animation: scrollUp 20s linear infinite;
+			html {
+				filter: grayscale(1);
 			}
-			.home {
-				position: fixed;
-				bottom: 2rem;
-				left: 50%;
-				transform: translate(-50%);
-				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-			}
-			.status {
-				font-size: 2.5em;
-				font-weight: bold;
-				font-family: "Orbitron", sans-serif;
-
+			section {
 				position: fixed;
 				top: 50%;
 				left: 50%;
-				animation: glitch 50ms steps(2, start) infinite;
+				width: 100%;
+				max-width: 40rem;
+				transform: translate(-50%, -50%);
+
+				text-align: center;
 			}
 			a {
-				text-decoration: none;
-				color: inherit;
-			}
-			.rect {
-				position: fixed;
-				border-radius: 20px;
-				z-index: -1;
-				animation: fallDown 5s linear forwards;
-			}
-			@keyframes fallDown {
-				from {
-					top: 0;
-					transform: translateY(-100%);
-				}
-				to {
-					top: 100%;
-					transform: translateY(0);
-				}
-			}
-			@keyframes scrollUp {
-				from {
-					background-position-y: 0%;
-				}
-				to {
-					background-position-y: 800px;
-				}
-			}
-			@keyframes glitch {
-				from {
-					transform: translate(-50%, -50%) skew(-10deg);
-				}
-				to {
-					transform: translate(-50%, -50%) skew(10deg);
-				}
+				filter: grayscale(1);
 			}
 		</style>
+		<title>nooby.one</title>
 	</head>
 	<body>
-		<span class="status">
-			<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
-				>404?</a
-			>
-		</span>
-		<span class="home">
-			<a href="index.html">Home</a>
-		</span>
-		<script>
-			let balance = 0;
-
-			setInterval(() => {
-				if (!document.hasFocus()) return;
-
-				const rect = document.createElement("div");
-				rect.className = "rect";
-
-				if (Math.round(Math.random()) + balance > 0) {
-					rect.style.left = Math.floor(Math.random() * 5) * 5 + "%";
-					balance--;
-				} else {
-					rect.style.right = Math.floor(Math.random() * 5) * 5 + "%";
-					balance++;
-				}
-
-				let size = (Math.floor(Math.random() * 35) / 100) * window.innerWidth;
-				size = size < 110 ? 110 : size;
-
-				rect.style.width = size + "px";
-				rect.style.height = size + "px";
-				rect.style.background = `rgba(0, 0, 0, ${(Math.random() * 0.5).toFixed(
-					1,
-				)})`;
-				rect.onanimationend = (e) => {
-					e.currentTarget.remove();
-				};
-
-				document.body.appendChild(rect);
-			}, 350);
-		</script>
+		<section>
+			<h1>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+					>404</a
+				>
+			</h1>
+			<p>Page not found.</p>
+			<p>
+				<a href="index.html">Home</a>
+			</p>
+		</section>
 	</body>
 </html>

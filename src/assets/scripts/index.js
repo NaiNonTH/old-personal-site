@@ -80,7 +80,7 @@ const splashTexts = [
 	"ถ้าฟ้าเสียตัว ฟ้าต้องได้เป็นแอร์ ✈️ /c",
 	"chipi chipi chapa chapa 🐱 dubi dubi daba daba 🐱 magico mi dubi dubi boom 💥 boom 💥 boom 💥 boom 🐱 /c",
 	"<a href='https://mypsd.dev' target='_blank'>mypsd.dev</a> cringe 🤮",
-	"uwu ♡ (^•⩊•^) ♡",
+	"uwu ♡ ฅ(^•⩊•^)ฅ ♡",
 	"Love you all 💗 /nx",
 	"*marquee go brrr*",
 	"MAMAAAAAA!?!?",
@@ -127,3 +127,17 @@ hourHand.style.setProperty(
 document.getElementById("reloadIframe").onclick = () => {
 	content.contentWindow.location.reload();
 };
+
+function enterCheat(...cheats) {
+	let cheat,
+		obj = {};
+
+	for (cheat of cheats) {
+		obj[cheat] = true;
+	}
+
+	localStorage.setItem("noobyone-cheat", JSON.stringify(obj));
+
+	console.log(`Cheat(s) entered.`);
+	console.table(obj);
+}

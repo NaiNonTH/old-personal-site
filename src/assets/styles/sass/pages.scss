@@ -9,8 +9,6 @@ body {
 	gap: 1rem;
 }
 section {
-	@extend %component-box;
-
 	h1 {
 		font-size: 2em;
 	}

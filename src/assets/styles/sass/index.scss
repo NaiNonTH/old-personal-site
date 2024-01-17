@@ -1,44 +1,6 @@
 @use "./mixins" as *;
 
 body {
-	&::before {
-		content: "";
-		@extend %background-filter;
-
-		background: repeat
-			linear-gradient(
-				to bottom,
-				rgba(0, 0, 0, 0.35) 0% 50%,
-				rgba(0, 0, 0, 0.1) 0% 100%
-			)
-			top left / 0.25rem 0.25rem;
-		z-index: -1;
-		animation: scrollUp 90s linear infinite;
-
-		@keyframes scrollUp {
-			from {
-				background-position-y: -100%;
-			}
-			to {
-				background-position-y: 100%;
-			}
-		}
-	}
-	&::after {
-		content: "";
-		@extend %background-filter;
-
-		z-index: -2;
-		background: linear-gradient(
-			to bottom,
-			rgba(var(--bg-primary), 0.5),
-			rgba(var(--bg-primary), 0.8)
-		);
-	}
-
-	background:
-		fixed no-repeat url(../images/backgrounds/main.jpg) center / cover,
-		rgba(var(--bg-primary));
 	min-width: 20rem;
 	max-width: 68rem;
 	margin: 3rem auto;
@@ -50,7 +12,7 @@ body {
 		"b f .";
 	gap: 1rem;
 
-	@media screen and (min-width: 40rem) {
+	@media screen and (min-width: calc(68rem + 1px)) {
 		padding: 0 1rem;
 	}
 	@media screen and (max-width: 68rem) {
@@ -110,6 +72,7 @@ aside {
 			min-width: -webkit-fit-content;
 			min-width: -moz-fit-content;
 			min-width: fit-content;
+			flex-grow: 1;
 		}
 	}
 	h2 {
@@ -142,7 +105,7 @@ aside {
 main {
 	grid-area: m;
 	position: relative;
-	min-height: 39rem;
+	min-height: 12rem;
 
 	@media screen and (max-width: 68rem) {
 		width: 40rem;
@@ -218,7 +181,6 @@ footer {
 	margin-bottom: 0.5rem;
 }
 #navigation {
-	max-width: 12rem;
 	overflow-y: auto;
 
 	nav {
@@ -293,6 +255,10 @@ footer {
 	position: absolute;
 	top: 15px;
 	right: 15px;
+
+	@media screen and (max-width: 68rem) {
+		margin-right: 1rem;
+	}
 }
 #clock::before {
 	content: "";
@@ -359,6 +325,45 @@ footer {
 		height: 55%;
 		background: rgba(240, 240, 240);
 	}
+}
+#pp-btn {
+	width: 2.5rem;
+	height: 2.5rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&::before, &::after {
+		height: 1rem;
+		background: currentColor;
+	}
+	&::before {
+		content: "";
+		width: 1rem;
+		clip-path: polygon(
+			0 0,
+			100% 50%,
+			0 100%,
+		);
+	}
+
+	&.playing {
+		&::before, &::after {
+			width: 0.35rem;
+		}
+		&::before {
+			margin-right: 0.1rem;
+			clip-path: none;
+		}
+		&::after {
+			content: "";
+			margin-left: 0.1rem;
+		}
+	}
+}
+#audio-volume {
+	margin: 1rem auto 0;
 }
 @keyframes clockHandSpin {
 	from {
