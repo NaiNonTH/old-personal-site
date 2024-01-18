@@ -141,3 +141,96 @@ function enterCheat(...cheats) {
 	console.log(`Cheat(s) entered.`);
 	console.table(obj);
 }
+
+let songIndex = 0;
+
+const songsURI = [
+	"assets/music/make-our-story.mp3",
+	"assets/music/ใจผมก็มีอยู่แค่นี้.mp3"
+];
+
+const playBtn = document.getElementById("pp-btn");
+playBtn.onclick = playMusic;
+
+let music, played;
+
+const volumeSlider = document.getElementById("audio-volume");
+volumeSlider.onchange = (e) => {
+	music.volume = +(e.target.value);
+};
+
+newMusic();
+
+const nextBtn = document.getElementById("next-btn");
+nextBtn.onclick = nextMusic;
+
+const prevBtn = document.getElementById("prev-btn");
+prevBtn.onclick = previousMusic
+
+const loopBtn = document.getElementById("loop-btn");
+loopBtn.onclick = () => {
+	music.loop = !music.loop;
+}
+
+function newMusic() {
+	if (played) {
+		music.pause();
+		played = undefined;
+	}
+	music = new Audio(songsURI[songIndex]);
+	music.muted = false;
+	music.volume = volumeSlider.value;
+	music.onended = (e) => {
+		if (!e.target.loop) nextMusic();
+	};
+}
+function previousMusic() {
+	if (songIndex <= 0) songIndex = songsURI.length - 1;
+	else songIndex--;
+	
+	newMusic();
+	playMusic();
+}
+function nextMusic() {
+	if (songIndex + 1 >= songsURI.length) songIndex = 0;
+	else songIndex++;
+
+	newMusic();
+	playMusic();
+}
+function playMusic() {
+	if (!played) {
+		played = music.play();
+		playBtn.classList.add("playing");
+	} else {
+		if (music.paused) {
+			music.play();
+			playBtn.classList.add("playing");
+			playBtn.title = "Pause";
+		} else {
+			music.pause();
+			playBtn.classList.remove("playing");
+			playBtn.title = "Play";
+		}
+	}
+}
+
+window.addEventListener("keypress", (e) => {
+	if (e.code === "Space") playMusic();
+});
+
+const muteBtn = document.getElementById("mute-btn");
+muteBtn.onclick = (e) => {
+	music.muted = !music.muted;
+
+	if (music.muted) {
+		muteBtn.classList.add("muted");
+		muteBtn.title = "Unmute";
+		volumeSlider.disabled = true;
+	}
+	else {
+		muteBtn.classList.remove("muted");
+		muteBtn.title = "Mute";
+		volumeSlider.disabled = false;
+	}
+}

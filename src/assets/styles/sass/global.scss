@@ -81,7 +81,8 @@ a {
 	text-decoration: none;
 	border-bottom: 1px solid currentColor;
 
-	&:hover, &:focus-visible {
+	&:hover,
+	&:focus-visible {
 		border-bottom-style: dotted;
 
 		img {
@@ -104,7 +105,8 @@ button {
 
 	color: rgba(var(--cl-interactives));
 
-	&:hover, &:focus-visible {
+	&:hover,
+	&:focus-visible {
 		color: rgba(var(--cl-heading-secondary));
 	}
 	&:active {
@@ -123,16 +125,18 @@ input[type="range"] {
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-		
+
 		width: 10px;
 		height: 10px;
 		border: 2px solid rgba(var(--cl-interactives));
 		background: rgba(var(--bg-secondary));
 	}
-
-	&:is(:focus-visible, :hover)::-webkit-slider-thumb {
+	&:is(:focus-visible, :hover):not([disabled])::-webkit-slider-thumb {
 		border: 2px solid rgba(var(--cl-heading-secondary));
 		background: rgba(var(--cl-interactives));
+	}
+	&[disabled] {
+		opacity: 0.25;
 	}
 }
 :is(a, button, input):focus-visible {

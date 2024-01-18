@@ -196,9 +196,12 @@ input[type=range]::-webkit-slider-thumb {
   border: 2px solid rgba(var(--cl-interactives));
   background: rgba(var(--bg-secondary));
 }
-input[type=range]:is(:focus-visible, :hover)::-webkit-slider-thumb {
+input[type=range]:is(:focus-visible, :hover):not([disabled])::-webkit-slider-thumb {
   border: 2px solid rgba(var(--cl-heading-secondary));
   background: rgba(var(--cl-interactives));
+}
+input[type=range][disabled] {
+  opacity: 0.25;
 }
 
 :is(a, button, input):focus-visible {

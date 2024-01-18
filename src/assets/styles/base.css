@@ -7,7 +7,7 @@ body::before, body::after {
 }
 
 body {
-  background: fixed no-repeat url(../images/backgrounds/main.jpg) center/cover, rgba(var(--bg-primary));
+  background: fixed no-repeat url(../images/backgrounds/main.jpg) left center/cover, rgba(var(--bg-primary));
 }
 body::before {
   content: "";
