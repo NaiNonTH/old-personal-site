@@ -145,18 +145,23 @@ function enterCheat(...cheats) {
 let songIndex = 0;
 
 const songsURI = [
-	"assets/music/make-our-story.mp3",
-	"assets/music/ใจผมก็มีอยู่แค่นี้.mp3"
+	{
+		title: "fukashigi no carte",
+		artist: "Mockingbird",
+		src: "assets/music/fukashigi-no-carte.mp3",
+	},
 ];
+
+const musicTitle = document.getElementById("music-title");
 
 const playBtn = document.getElementById("pp-btn");
 playBtn.onclick = playMusic;
 
-let music, played;
+let music, played, current;
 
 const volumeSlider = document.getElementById("audio-volume");
 volumeSlider.onchange = (e) => {
-	music.volume = +(e.target.value);
+	music.volume = +e.target.value;
 };
 
 newMusic();
@@ -165,21 +170,34 @@ const nextBtn = document.getElementById("next-btn");
 nextBtn.onclick = nextMusic;
 
 const prevBtn = document.getElementById("prev-btn");
-prevBtn.onclick = previousMusic
+prevBtn.onclick = previousMusic;
 
 const loopBtn = document.getElementById("loop-btn");
 loopBtn.onclick = () => {
 	music.loop = !music.loop;
-}
+
+	if (music.loop) {
+		loopBtn.classList.add("loop");
+		loopBtn.title = "No Loop";
+	} else {
+		loopBtn.classList.remove("loop");
+		loopBtn.title = "Loop";
+	}
+};
 
 function newMusic() {
 	if (played) {
 		music.pause();
 		played = undefined;
 	}
-	music = new Audio(songsURI[songIndex]);
+	current = songsURI[songIndex];
+
+	music = new Audio(current.src);
 	music.muted = false;
 	music.volume = volumeSlider.value;
+
+	musicTitle.innerText = `${current.title} - ${current.artist}`;
+
 	music.onended = (e) => {
 		if (!e.target.loop) nextMusic();
 	};
@@ -187,7 +205,7 @@ function newMusic() {
 function previousMusic() {
 	if (songIndex <= 0) songIndex = songsURI.length - 1;
 	else songIndex--;
-	
+
 	newMusic();
 	playMusic();
 }
@@ -227,10 +245,37 @@ muteBtn.onclick = (e) => {
 		muteBtn.classList.add("muted");
 		muteBtn.title = "Unmute";
 		volumeSlider.disabled = true;
-	}
-	else {
+	} else {
 		muteBtn.classList.remove("muted");
 		muteBtn.title = "Mute";
 		volumeSlider.disabled = false;
 	}
+};
+
+const systemInfo = document.getElementById("system-info");
+const ua = navigator.userAgent;
+
+console.log(ua);
+
+let regExecuted;
+
+if ((regExecuted = /Edg\/([\d|\.]+)/.exec(ua))) {
+	systemInfo.innerHTML += "<br>browser: Edge " + regExecuted[1];
+} else if ((regExecuted = /OPR\/([\d|\.]+)/.exec(ua))) {
+	systemInfo.innerHTML += "<br>browser: Opera " + regExecuted[1];
+} else if ((regExecuted = /Firefox\/([\d|\.]+)/.exec(ua))) {
+	systemInfo.innerHTML += "<br>browser: Firefox " + regExecuted[1];
+} else if ((regExecuted = /SamsungBrowser\/([\d|\.]+)/.exec(ua))) {
+	systemInfo.innerHTML += "<br>browser: Samsung Internet " + regExecuted[1];
+} else if ((regExecuted = /Chrome\/([\d|\.]+)/.exec(ua))) {
+	systemInfo.innerHTML += "<br>browser: Chrome " + regExecuted[1];
+} else {
+	regExecuted = /[\d|\.]+/;
+	systemInfo.innerHTML += "<br>browser: Safari " + regExecuted[0];
+}
+
+if (ua.includes("Mobile")) {
+	systemInfo.innerHTML += "<br>mobile: true";
+} else {
+	systemInfo.innerHTML += "<br>mobile: false";
 }

@@ -83,6 +83,7 @@ aside.right {
 }
 @media screen and (max-width: 68rem) {
   aside > * {
+    overflow-y: auto;
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
@@ -116,6 +117,7 @@ aside::-webkit-scrollbar-thumb {
 main {
   grid-area: m;
   position: relative;
+  overflow: hidden;
   min-height: 12rem;
 }
 @media screen and (max-width: 68rem) {
@@ -191,9 +193,6 @@ footer {
   margin-bottom: 0.5rem;
 }
 
-#navigation {
-  overflow-y: auto;
-}
 #navigation nav {
   margin: 0.25rem 0 0.5rem;
   display: flex;
@@ -251,7 +250,7 @@ footer {
   }
 }
 
-#status {
+#status .overall {
   display: flex;
   justify-content: space-between;
   flex-flow: row nowrap;
@@ -379,24 +378,34 @@ footer {
   margin-left: 0.1rem;
 }
 
-#next-btn, #prev-btn {
+#next-btn,
+#prev-btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-#next-btn::before, #next-btn::after, #prev-btn::before, #prev-btn::after {
+#next-btn::before, #next-btn::after,
+#prev-btn::before,
+#prev-btn::after {
   content: "";
-  width: 0.6rem;
   height: 1rem;
   background: currentColor;
 }
 
-#next-btn::before, #next-btn::after {
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
+#next-btn::before {
+  width: 0.6rem;
+  clip-path: polygon(0 0, 100% 45%, 100% 55%, 0 100%);
+}
+#next-btn::after {
+  width: 0.2rem;
 }
 
-#prev-btn::before, #prev-btn::after {
-  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+#prev-btn::after {
+  width: 0.6rem;
+  clip-path: polygon(100% 0, 100% 100%, 0% 55%, 0% 45%);
+}
+#prev-btn::before {
+  width: 0.2rem;
 }
 
 #mute-btn {
@@ -440,9 +449,35 @@ footer {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
+#loop-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#loop-btn.loop::before {
+  content: "";
+  background: currentColor;
+  width: 3px;
+  height: 1.75rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
 #audio-volume {
   width: 100%;
   flex-grow: 1;
+}
+
+#system-info {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-style: italic;
+  font-family: var(--heading-font);
+  text-align: right;
 }
 
 @keyframes clockHandSpin {

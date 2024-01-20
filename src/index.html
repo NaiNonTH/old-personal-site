@@ -6,12 +6,12 @@
 		<link rel="stylesheet" href="assets/styles/global.css" />
 		<link rel="stylesheet" href="assets/styles/base.css" />
 		<link rel="stylesheet" href="assets/styles/index.css" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Orbitron:wght@700&display=swap"
-			rel="stylesheet"
-		/>
 		<script src="assets/scripts/index.js" charset="UTF-8" defer></script>
-		<script src="assets/scripts/instantpage-5.2.0.js" type="module" defer></script>
+		<script
+			src="assets/scripts/instantpage-5.2.0.js"
+			type="module"
+			defer
+		></script>
 		<title>nooby.one</title>
 	</head>
 	<body>
@@ -41,11 +41,13 @@
 				<nav>
 					<a href="pages/destiny/index.html" target="content">Destiny</a>
 					<a href="pages/spammojis.html" target="content">Spammojis</a>
+					<a href="pages/site-graphics.html" target="content">Site Graphics</a>
 				</nav>
 				<h3>Offsites</h3>
 				<nav>
 					<a href="https://mypsd.dev">mypsd.dev</a>
 					<a href="https://venttonainon.netlify.app">Vent</a>
+					<a href="https://linktr.ee/NaiNonTheN00b1">Linktree</a>
 				</nav>
 			</section>
 		</aside>
@@ -74,6 +76,15 @@
 		<aside class="right">
 			<section id="audio-player">
 				<h2>Music</h2>
+				<p>
+					<strong>Now playing:</strong>
+					<marquee
+						behavior="scroll"
+						direction="left"
+						scrollamount="3"
+						id="music-title"
+					></marquee>
+				</p>
 				<div class="music-player">
 					<div class="change-or-play">
 						<button title="Previous" id="prev-btn"></button>
@@ -91,18 +102,38 @@
 							max="1"
 							step="0.1"
 						/>
-						<button id="loop-btn">Loop</button>
+						<button title="Loop" id="loop-btn">
+							<svg
+								width="16"
+								height="13"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 31 26"
+							>
+								<path
+									d="M7184,7197.5h3.5v-10l1-1h22l1,1v7h-4v-3l-1-1h-14l-1,1v6h3.5l-5.5,5Z"
+									transform="translate(-7184 -7186.5)"
+									fill="currentColor"
+								/>
+								<path
+									d="M7215,7201.5h-3.5v10l-1,1h-22l-1-1v-7h4v3l1,1h14l1-1v-6H7204l5.5-5Z"
+									transform="translate(-7184 -7186.5)"
+									fill="currentColor"
+								/>
+							</svg>
+						</button>
 					</div>
 				</div>
 			</section>
 			<section id="status">
-				<div>
-					<h2>Status:</h2>
-					<p>WIP</p>
+				<div class="overall">
+					<div>
+						<h2>Status:</h2>
+						<p>WIP</p>
+					</div>
+					<div class="emotes">🚧</div>
 				</div>
-				<div>
-					<span class="emotes">🚧</span>
-				</div>
+				<hr />
+				<p id="description">I'll continue making this later :&rpar;</p>
 			</section>
 			<section id="settings">
 				<h2>Settings</h2>
@@ -201,8 +232,9 @@
 			</marquee>
 		</section>
 		<footer>
-			Made by NaiNon<wbr />TheN00b1,
-			<a href="pages/about.html" target="content">#backtobasic</a>
+			Since 2024, by NaiNon<wbr />TheN00b1, hosted on
+			<a href="https://neocities.org">Neocities</a>.
 		</footer>
+		<span id="system-info">siteVersion: 1.0</span>
 	</body>
 </html>
