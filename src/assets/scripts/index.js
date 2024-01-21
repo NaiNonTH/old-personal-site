@@ -157,7 +157,7 @@ const musicTitle = document.getElementById("music-title");
 const playBtn = document.getElementById("pp-btn");
 playBtn.onclick = playMusic;
 
-let music, played, current;
+let music, played, currentSong;
 
 const volumeSlider = document.getElementById("audio-volume");
 volumeSlider.onchange = (e) => {
@@ -190,13 +190,11 @@ function newMusic() {
 		music.pause();
 		played = undefined;
 	}
-	current = songsURI[songIndex];
+	currentSong = songsURI[songIndex];
 
-	music = new Audio(current.src);
+	music = new Audio(currentSong.src);
 	music.muted = false;
 	music.volume = volumeSlider.value;
-
-	musicTitle.innerText = `${current.title} - ${current.artist}`;
 
 	music.onended = (e) => {
 		if (!e.target.loop) nextMusic();
@@ -220,6 +218,8 @@ function playMusic() {
 	if (!played) {
 		played = music.play();
 		playBtn.classList.add("playing");
+
+		musicTitle.innerText = `${currentSong.title} - ${currentSong.artist}`;
 	} else {
 		if (music.paused) {
 			music.play();

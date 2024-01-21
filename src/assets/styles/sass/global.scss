@@ -171,6 +171,9 @@ button,
 select {
 	cursor: var(--cursor-default);
 }
+textarea {
+	max-width: 100%;
+}
 :is(a, button, input):focus-visible {
 	outline: 1px dashed rgba(var(--cl-paragraph-secondary));
 }

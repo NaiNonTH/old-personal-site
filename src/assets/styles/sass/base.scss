@@ -13,7 +13,7 @@ body {
 			)
 			top left / 0.25rem 0.25rem;
 		z-index: -1;
-		animation: scrollUp 90s linear infinite;
+		animation: scrollUp 90s cubic-bezier(.2,0,.75,1) infinite;
 
 		@keyframes scrollUp {
 			from {
@@ -39,4 +39,14 @@ body {
 	background:
 		fixed no-repeat url(../images/backgrounds/main.jpg) left center / cover,
 		rgba(var(--bg-primary));
+	animation: slideRight 75s linear alternate infinite;
+
+	@keyframes slideRight {
+		from {
+			background-position-x: 0%;
+		}
+		to {
+			background-position-x: 100%;
+		}
+	}
 }

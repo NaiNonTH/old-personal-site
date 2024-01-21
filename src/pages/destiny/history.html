@@ -14,7 +14,6 @@
 				right: 0;
 				top: 0;
 				bottom: 0;
-				transform: translate(100%);
 				display: none;
 			}
 			#leaderboard tr button::after {
@@ -22,6 +21,12 @@
 			}
 			#leaderboard tr:hover button {
 				display: block;
+			}
+
+			@media screen and (min-width: 40rem) {
+				#leaderboard tr button {
+					transform: translate(100%);
+				}
 			}
 		</style>
 	</head>
