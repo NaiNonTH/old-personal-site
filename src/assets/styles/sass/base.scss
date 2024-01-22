@@ -13,7 +13,7 @@ body {
 			)
 			top left / 0.25rem 0.25rem;
 		z-index: -1;
-		animation: scrollUp 90s cubic-bezier(.2,0,.75,1) infinite;
+		animation: scrollUp 90s cubic-bezier(0.2, 0, 0.75, 1) infinite;
 
 		@keyframes scrollUp {
 			from {

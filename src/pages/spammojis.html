@@ -7,24 +7,19 @@
 		<script src="https://unpkg.com/alpinejs" defer></script>
 		<style>
 			.emojis-inputs {
-				width: 100%;
-				padding: 0.5rem 0;
+				height: 2.25rem;
+				margin: 0.5rem 0;
 				text-align: center;
 				white-space: nowrap;
 				overflow-x: auto;
-			}
-			.emojis-inputs span {
-				background: #efefef;
-				display: inline-block;
-				padding: 0.5rem;
-				margin: 0 0.25rem;
 			}
 			.emojiboard {
 				display: flex;
 				justify-content: center;
 				flex-flow: row wrap;
+				padding: 1rem 0;
 				gap: 0.25rem;
-				margin-bottom: 1rem;
+				border-block: 1px solid rgba(var(--cl-paragraph-secondary));
 
 				height: 10rem;
 				overflow-y: auto;
@@ -32,6 +27,18 @@
 			.emojiboard button {
 				width: 2.25rem;
 				height: 2.25rem;
+			}
+			.other-setting {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				max-width: 18rem;
+				margin: 1rem auto 1rem;
+			}
+			.submit-btn,
+			textarea {
+				display: block;
+				margin: 0 auto;
 			}
 		</style>
 	</head>
@@ -49,12 +56,25 @@
 				'😠','😡','🤬','😷','🤒','🤕','🤢','🤮','🤧','😇',
 				'🥳','🥸','🥺','🥹','🤠','🤡','🤥','🫨','🤫','🤭',
 				'🫢','🫣','🧐','🤓','😈','👿','👹','👺','💀','☠️',
-				'🗿'
+				'👻','👽','👾','🤖','💩','🗿','🪦','💧','❤️','🩷',
+				'🧡','💛','💚','💙','🩵','💜','🤎','🖤','🩶','🤍',
+				'💔','❤️‍🔥','❤️‍🩹','❣️','💞','💓','💗','💖','💘','💝',
+				'💟','💌','💢','💥','💤','💦','💨','💫','🕳️'
 			],
-			length: 10,
+			threshold: 16,
+			length: 16,
 			included: [],
+			insert(emoji) {
+				if (!this.included.includes(emoji)) this.included.push(emoji);
+			},
 			submit() {
-				if (this.included.length == 0) return;
+				this.length = +(this.length)
+				this.threshold = +(this.threshold)
+
+				if (this.included.length == 0 || !this.length || this.threshold < 0) {
+					$refs.outputElem.value = '[Error] Input incomplete\n\nHave you chosen emojis? Or did you forget to fill in something?';
+					return;
+				}
 
 				let lengthLeft = this.length,
 					lengthRand,
@@ -62,14 +82,15 @@
 					temp = '';
 
 				while (lengthLeft > 0) {
-					lengthRand = Math.floor(Math.random() * (lengthLeft - 1) + 1);
+					lengthRand = Math.floor(Math.random() * (Math.ceil((this.threshold / 100) * this.length) - 1) + 1);
 					emoteRand = Math.floor(Math.random() * this.included.length);
 					
 					for (i = 0; i < lengthRand; i++) {
+						if (lengthLeft <= 0) break;
 						temp += this.included[emoteRand];
+
+						lengthLeft--;
 					}
-					
-					lengthLeft -= lengthRand;
 				}
 
 				$refs.outputElem.value = temp;
@@ -80,32 +101,92 @@
 			<h1>Spammojis</h1>
 		</section>
 		<section>
+			<h2>Chosen Emojis</h2>
 			<div class="emojis-inputs">
 				<template x-for="emoji in included">
 					<button
-						@click="included = included.filter((n) => !(n == emoji))"
+						@click="included = included.filter((n) => n != emoji)"
 						x-text="emoji"
 					></button>
 				</template>
 			</div>
 			<div class="emojiboard">
 				<template x-for="emoji in emojis">
-					<button
-						@click="included.push(emoji)"
-						x-text="emoji"
-					></button>
+					<button @click="insert(emoji)" x-text="emoji"></button>
 				</template>
 			</div>
-			<input
-				type="number"
-				min="0"
-				max="128"
-				x-model="length"
-			/>
-			<button @click="submit">Random</button>
+			<div class="other-setting">
+				<label for="lengthInput">Output Length:</label>
+				<input
+					type="number"
+					min="0"
+					max="256"
+					name="lengthInput"
+					x-model="length"
+				/>
+			</div>
+			<div class="other-setting">
+				<label for="thresholdInput">Repetition Chance:</label>
+				<input
+					type="range"
+					min="1"
+					max="100"
+					step="1"
+					name="thresholdInput"
+					x-model="threshold"
+				/>
+			</div>
+			<button class="submit-btn" @click="submit">Random Spam!</button>
 		</section>
 		<section>
-			<textarea x-ref="outputElem" rows="8" cols="50" id="output" readonly></textarea>
+			<textarea
+				x-ref="outputElem"
+				rows="8"
+				cols="50"
+				id="output"
+				readonly
+			></textarea>
+		</section>
+		<section>
+			<h2>How to use</h2>
+			<p>
+				Start by choosing some emojis from the list given. You can choose more
+				than one.
+			</p>
+			<p>
+				To remove chosen emojis, click on the Selected emojis above the list.
+			</p>
+			<p>Then, change the Output Length and the Repetition Chance:</p>
+			<ul>
+				<li>
+					<strong>Output Length</strong> defines how much it should output the
+					set of emojis that will be output. It receives any whole number (but
+					please, not too big).
+				</li>
+				<li>
+					<strong>Repetition Chance</strong> defines how less variated the set
+					of output emojis should be. It receives a number ranging from 1 to
+					100.
+				</li>
+			</ul>
+			<p>After done filling in inputs, click "Random Spam!" for your output.</p>
+			<p>
+				If you don't like the output, you can always click "Random Spam!" again.
+			</p>
+		</section>
+		<section>
+			<h2>Note</h2>
+			<ul>
+				<li>
+					There are chances that some emojis might not appear in the output.
+					Though, you can rerun the process again for the output that includes
+					all emojis. A higher Repetition Chance can increase this behavior.
+				</li>
+				<li>
+					Due to technical limitation, I can't implement the emoji input as a
+					textbox that you can type in.
+				</li>
+			</ul>
 		</section>
 	</body>
 </html>

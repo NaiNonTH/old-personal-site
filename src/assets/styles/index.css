@@ -34,7 +34,7 @@ body {
   grid-template-areas: "l m r" "b f .";
   gap: 1rem;
 }
-@media screen and (min-width: calc(68rem + 1px)) {
+@media screen and (min-width: 68rem) {
   body {
     padding: 0 1rem;
   }

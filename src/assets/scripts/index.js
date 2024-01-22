@@ -178,7 +178,7 @@ loopBtn.onclick = () => {
 
 	if (music.loop) {
 		loopBtn.classList.add("loop");
-		loopBtn.title = "No Loop";
+		loopBtn.title = "Unloop";
 	} else {
 		loopBtn.classList.remove("loop");
 		loopBtn.title = "Loop";
@@ -254,8 +254,6 @@ muteBtn.onclick = (e) => {
 
 const systemInfo = document.getElementById("system-info");
 const ua = navigator.userAgent;
-
-console.log(ua);
 
 let regExecuted;
 
