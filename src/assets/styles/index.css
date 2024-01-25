@@ -47,21 +47,6 @@ body {
   }
 }
 
-header .avatar {
-  position: relative;
-  margin: auto;
-  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.35), inset -2px -2px 3px rgba(0, 0, 0, 0.35);
-}
-header .avatar::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  z-index: -1;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7e6031, #271c09);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
-}
-
 aside {
   display: flex;
   flex-direction: column;
@@ -207,24 +192,27 @@ footer {
   position: relative;
   padding: 0.25rem 0.75rem;
   border: none;
+  transition: color 0.2s;
   -webkit-user-select: none;
   user-select: none;
 }
 #navigation nav a::after {
   content: "";
   position: absolute;
-  top: 0.5em;
-  bottom: 0.5em;
+  top: 0.6em;
+  bottom: 0.6em;
   left: 0;
-  width: 2px;
+  width: 3px;
+  border-radius: 10px;
   background: transparent;
   transition: background-color 0.2s;
-}
-#navigation nav a:hover {
-  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
 }
 #navigation nav a:hover::after {
   background: rgba(var(--cl-paragraph-secondary));
+}
+#navigation nav a:active {
+  transition: none;
 }
 
 #splash-message {
@@ -270,6 +258,20 @@ footer {
   }
 }
 
+#clock {
+  position: relative;
+  margin: auto;
+  width: 8rem;
+  height: 8rem;
+}
+#clock .avatar {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.35), inset -2px -2px 3px rgba(0, 0, 0, 0.35);
+  background: url(../images/me/avatar.jpg) center/contain;
+}
 #clock::before {
   content: "";
   position: absolute;
@@ -278,9 +280,17 @@ footer {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
-  z-index: 3;
+  z-index: 5;
   transform: translate(-50%, -50%);
   background: #372910;
+}
+#clock::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7e6031, #271c09);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 #second-hand,
@@ -307,7 +317,7 @@ footer {
 #second-hand {
   --rotate: 0deg;
   width: 3px;
-  z-index: 2;
+  z-index: 4;
   animation: clockHandSpin 60s linear infinite;
 }
 #second-hand::after {
@@ -318,7 +328,7 @@ footer {
 #minute-hand {
   --rotate: 0deg;
   width: 6px;
-  z-index: 1;
+  z-index: 3;
   animation: clockHandSpin 3600s linear infinite;
 }
 #minute-hand::after {
@@ -328,6 +338,7 @@ footer {
 
 #hour-hand {
   --rotate: 0deg;
+  z-index: 2;
   width: 10px;
   animation: clockHandSpin 86400s linear infinite;
 }
@@ -438,16 +449,6 @@ footer {
   right: 0;
   bottom: 0;
 }
-#mute-btn.muted span::before, #mute-btn.muted span::after {
-  content: "";
-  background: currentColor;
-  width: 2px;
-  height: 125%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-}
 
 #loop-btn {
   position: relative;
@@ -455,11 +456,13 @@ footer {
   justify-content: center;
   align-items: center;
 }
-#loop-btn.loop::before {
+
+:is(#loop-btn.loop,
+#mute-btn.muted span)::before {
   content: "";
   background: currentColor;
-  width: 3px;
-  height: 1.75rem;
+  width: 2px;
+  height: 125%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -478,6 +481,8 @@ footer {
   font-style: italic;
   font-family: var(--heading-font);
   text-align: right;
+  opacity: 0.75;
+  pointer-events: none;
 }
 
 @keyframes clockHandSpin {

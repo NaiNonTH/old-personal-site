@@ -35,3 +35,14 @@
 	right: 0;
 	bottom: 0;
 }
+%interactives {
+	color: rgba(var(--cl-interactives));
+	
+	&:hover,
+	&:focus-visible {
+		color: rgba(var(--cl-heading-secondary));
+	}
+	&:active {
+		color: rgba(var(--cl-paragraph-secondary));
+	}
+}

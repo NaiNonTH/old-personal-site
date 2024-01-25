@@ -28,24 +28,6 @@ body {
 }
 header {
 	@extend %component-box;
-
-	.avatar {
-		position: relative;
-		margin: auto;
-		box-shadow:
-			inset 2px 2px 3px rgba(255, 255, 255, 0.35),
-			inset -2px -2px 3px rgba(0, 0, 0, 0.35);
-
-		&::after {
-			content: "";
-			position: absolute;
-			inset: -4px;
-			z-index: -1;
-			border-radius: 50%;
-			background: linear-gradient(135deg, #7e6031, #271c09);
-			box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
-		}
-	}
 }
 aside {
 	display: flex;
@@ -195,6 +177,7 @@ footer {
 		position: relative;
 		padding: 0.25rem 0.75rem;
 		border: none;
+		transition: color 0.2s;
 
 		-webkit-user-select: none;
 		user-select: none;
@@ -202,19 +185,22 @@ footer {
 		&::after {
 			content: "";
 			position: absolute;
-			top: 0.5em;
-			bottom: 0.5em;
+			top: 0.6em;
+			bottom: 0.6em;
 			left: 0;
-			width: 2px;
+			width: 3px;
+			border-radius: 10px;
 			background: transparent;
 			transition: background-color 0.2s;
+			filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
 		}
 		&:hover {
-			filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
-
 			&::after {
 				background: rgba(var(--cl-paragraph-secondary));
 			}
+		}
+		&:active {
+			transition: none;
 		}
 	}
 }
@@ -259,17 +245,42 @@ footer {
 		margin-right: 1rem;
 	}
 }
-#clock::before {
-	content: "";
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 0.75rem;
-	height: 0.75rem;
-	border-radius: 50%;
-	z-index: 3;
-	transform: translate(-50%, -50%);
-	background: #372910;
+#clock {
+	position: relative;
+	margin: auto;
+	width: 8rem;
+	height: 8rem;
+	
+	.avatar {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		border-radius: 50%;
+		box-shadow:
+			inset 2px 2px 3px rgba(255, 255, 255, 0.35),
+			inset -2px -2px 3px rgba(0, 0, 0, 0.35);
+		background: url(../images/me/avatar.jpg) center / contain;
+	}
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0.75rem;
+		height: 0.75rem;
+		border-radius: 50%;
+		z-index: 5;
+		transform: translate(-50%, -50%);
+		background: #372910;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		inset: -4px;
+		border-radius: 50%;
+		background: linear-gradient(135deg, #7e6031, #271c09);
+		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+	}
 }
 #second-hand,
 #minute-hand,
@@ -294,7 +305,7 @@ footer {
 	--rotate: 0deg;
 
 	width: 3px;
-	z-index: 2;
+	z-index: 4;
 	animation: clockHandSpin 60s linear infinite;
 
 	&::after {
@@ -306,7 +317,7 @@ footer {
 	--rotate: 0deg;
 
 	width: 6px;
-	z-index: 1;
+	z-index: 3;
 	animation: clockHandSpin 3600s linear infinite;
 
 	&::after {
@@ -316,6 +327,7 @@ footer {
 }
 #hour-hand {
 	--rotate: 0deg;
+	z-index: 2;
 
 	width: 10px;
 	animation: clockHandSpin 86400s linear infinite;
@@ -434,40 +446,26 @@ footer {
 		right: 0;
 		bottom: 0;
 	}
-	&.muted span {
-		&::before,
-		&::after {
-			content: "";
-			background: currentColor;
-			width: 2px;
-			height: 125%;
-
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%) rotate(45deg);
-		}
-	}
 }
 #loop-btn {
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+:is(
+	#loop-btn.loop,
+	#mute-btn.muted span
+)::before {
+	content: "";
+	background: currentColor;
+	width: 2px;
+	height: 125%;
 
-	&.loop {
-		&::before {
-			content: "";
-			background: currentColor;
-			width: 3px;
-			height: 1.75rem;
-
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%) rotate(45deg);
-		}
-	}
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
 }
 #audio-volume {
 	width: 100%;
@@ -480,6 +478,8 @@ footer {
 	font-style: italic;
 	font-family: var(--heading-font);
 	text-align: right;
+	opacity: 0.75;
+	pointer-events: none;
 }
 @keyframes clockHandSpin {
 	from {

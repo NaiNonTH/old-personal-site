@@ -34,8 +34,8 @@
 	--cl-paragraph-secondary: 239, 239, 239;
 	--cl-interactives: 128, 204, 255;
 
-	--cursor-default: url(../images/cursors/cursor.cur), default;
-	--cursor-pointer: url(../images/cursors/pointer.cur), pointer;
+	--cursor-default: url(../images/cursors/cursor.png) 0 0, default;
+	--cursor-pointer: url(../images/cursors/pointer.png) 3 0, pointer;
 }
 
 *,
@@ -104,10 +104,15 @@ p {
 	line-height: 1.5em;
 }
 a {
-	color: rgba(var(--cl-interactives));
+	@extend %interactives;
+	
 	text-decoration: none;
 	border-bottom: 1px solid currentColor;
 	cursor: var(--cursor-pointer);
+
+	img {
+		transition: filter 0.2s;
+	}
 
 	&:hover,
 	&:focus-visible {
@@ -126,20 +131,12 @@ hr {
 	border-top: 1px solid;
 }
 button {
+	@extend %interactives;
+
 	background: rgba(var(--bg-secondary));
 	font-family: var(--heading-font);
 	padding: 0.35rem 0.5rem;
 	border: 2px solid currentColor;
-
-	color: rgba(var(--cl-interactives));
-
-	&:hover,
-	&:focus-visible {
-		color: rgba(var(--cl-heading-secondary));
-	}
-	&:active {
-		color: rgba(var(--cl-paragraph-secondary));
-	}
 }
 input[type="range"] {
 	-webkit-appearance: none;
@@ -174,6 +171,24 @@ select {
 }
 textarea {
 	max-width: 100%;
+	background: linear-gradient(
+		to bottom,
+		rgba(12, 12, 12, 0.75),
+		rgba(25, 25, 25, 0.75),
+		rgba(12, 12, 12, 0.75)
+	);
+	color: rgba(80, 200, 80);
+	border: none;
+	box-shadow: 0 0 0 1px rgba(var(--cl-paragraph-secondary));
+
+	&::selection {
+		background: rgba(80, 200, 80);
+		color: white;
+	}
+	&:focus {
+		outline: transparent;
+		box-shadow: 0 0 0 2px rgba(var(--cl-interactives));
+	}
 }
 :is(a, button, input):focus-visible {
 	outline: 1px dashed rgba(var(--cl-paragraph-secondary));
@@ -210,12 +225,6 @@ table {
 		border: 1px solid rgba(var(--cl-primary));
 	}
 }
-.avatar {
-	width: 8rem;
-	height: 8rem;
-	border-radius: 50%;
-	background: url(../images/me/avatar.jpg) center / contain;
-}
 .grid-column {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
@@ -241,4 +250,8 @@ table {
 	&-thumb {
 		background-color: rgba(var(--cl-heading-secondary));
 	}
+}
+::selection {
+	background: rgba(var(--cl-heading-secondary));
+	color: rgba(var(--cl-paragraph-secondary));
 }

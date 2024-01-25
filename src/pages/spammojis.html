@@ -40,6 +40,9 @@
 				display: block;
 				margin: 0 auto;
 			}
+			textarea {
+				resize: none;
+			}
 		</style>
 	</head>
 	<body
@@ -71,7 +74,7 @@
 				this.length = +(this.length)
 				this.threshold = +(this.threshold)
 
-				if (this.included.length == 0 || !this.length || this.threshold < 0) {
+				if (this.included.length == 0 || !this.length) {
 					$refs.outputElem.value = '[Error] Input incomplete\n\nHave you chosen emojis? Or did you forget to fill in something?';
 					return;
 				}
@@ -126,7 +129,7 @@
 				/>
 			</div>
 			<div class="other-setting">
-				<label for="thresholdInput">Repetition Chance:</label>
+				<label for="thresholdInput">Spam Rate:</label>
 				<input
 					type="range"
 					min="1"
@@ -156,16 +159,16 @@
 			<p>
 				To remove chosen emojis, click on the Selected emojis above the list.
 			</p>
-			<p>Then, change the Output Length and the Repetition Chance:</p>
+			<p>Then, change the Output Length and the Spam Rate:</p>
 			<ul>
 				<li>
 					<strong>Output Length</strong> defines how much it should output the
-					set of emojis that will be output. It receives any whole number (but
+					set of emojis that will be output. It accepts any whole number (but
 					please, not too big).
 				</li>
 				<li>
-					<strong>Repetition Chance</strong> defines how less variated the set
-					of output emojis should be. It receives a number ranging from 1 to
+					<strong>Spam Rate</strong> defines how repetitive the set
+					of output emojis should be. It accepts a number ranging from 1 to
 					100.
 				</li>
 			</ul>
@@ -180,7 +183,7 @@
 				<li>
 					There are chances that some emojis might not appear in the output.
 					Though, you can rerun the process again for the output that includes
-					all emojis. A higher Repetition Chance can increase this behavior.
+					all emojis. A higher Spam Rate can increase this behavior.
 				</li>
 				<li>
 					Due to technical limitation, I can't implement the emoji input as a

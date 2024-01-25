@@ -63,30 +63,24 @@ onresize = () => updateContentHeight();
 const splashTexts = [
 	"Blazingly fast 🚀⚡️🚀⚡️",
 	"[object Object] :3",
-	"Svelte > React",
 	'console.log("Hello, world");',
 	"Mentally f**ked by C and assembly.",
-	"Certified Micr*s*ft bitch",
-	"I wanna be a cute lil' asian girl but god and my fat-ass wouldn't let me :(",
-	"This is made to be the most random shit happen on the internet.",
-	"fuck myself. /lh",
 	"𝓪𝓮𝓼𝓽𝓱𝓮𝓽𝓲𝓬𝓪𝓵𝓵𝔂 stupid",
 	"🤓☝️",
 	"👍",
-	"Super idol 的笑容 都沒你的甜 八月正午的陽光 都沒你耀眼 熱愛105度的你 滴滴清純的蒸餾水 💦 /c",
-	"Dame tu cosita 👽 ah 👽 ah 👽, Dame tu cosita 👽 ah... 👽 <strong>ay?</strong> 👽 /c",
+	"Super idol 的笑容 都沒你的甜 八月正午的陽光 都沒你耀眼 熱愛105度的你 滴滴清純的蒸餾水 💦",
+	"Dame tu cosita 👽 ah 👽 ah 👽, Dame tu cosita 👽 ah... 👽 <strong>ay?</strong> 👽",
 	"whoopa gangnam style 🕶️",
 	"☝️ what does the fox say? 🦊🦊",
-	"ถ้าฟ้าเสียตัว ฟ้าต้องได้เป็นแอร์ ✈️ /c",
-	"chipi chipi chapa chapa 🐱 dubi dubi daba daba 🐱 magico mi dubi dubi boom 💥 boom 💥 boom 💥 boom 🐱 /c",
+	"chipi chipi chapa chapa 🐱 dubi dubi daba daba 🐱 magico mi dubi dubi boom 💥 boom 💥 boom 💥 boom 🐱",
 	"<a href='https://mypsd.dev' target='_blank'>mypsd.dev</a> cringe 🤮",
 	"uwu ♡ ฅ(^•⩊•^)ฅ ♡",
-	"Love you all 💗 /nx",
+	"Love you all 💗",
 	"*marquee go brrr*",
 	"MAMAAAAAA!?!?",
 	"Fuck the wars.",
-	"Imagine the world where everyone gives the other respect; It would be so awesome! :)",
-	"Inspired by <a href='https://cinni.net'>cinni.net</a>, <a href='https://lostlove.neocities.org'>lunospace</a>, and <a href='https://shishka.neocities.org/nofollow'>No follow</a>.",
+	"Imagine the world where everyone gives the other respect; it would be so awesome! :)",
+	"Inspired by *holy cow, so many sites out there*",
 ];
 
 document
@@ -128,27 +122,13 @@ document.getElementById("reloadIframe").onclick = () => {
 	content.contentWindow.location.reload();
 };
 
-function enterCheat(...cheats) {
-	let cheat,
-		obj = {};
-
-	for (cheat of cheats) {
-		obj[cheat] = true;
-	}
-
-	localStorage.setItem("noobyone-cheat", JSON.stringify(obj));
-
-	console.log(`Cheat(s) entered.`);
-	console.table(obj);
-}
-
 let songIndex = 0;
 
 const songsURI = [
 	{
 		title: "fukashigi no carte",
 		artist: "Mockingbird",
-		src: "assets/music/fukashigi-no-carte.mp3",
+		src: "https://files.catbox.moe/gjrekv.mp3",
 	},
 ];
 
@@ -161,6 +141,7 @@ let music, played, currentSong;
 
 const volumeSlider = document.getElementById("audio-volume");
 volumeSlider.onchange = (e) => {
+	e.preventDefault();
 	music.volume = +e.target.value;
 };
 
@@ -238,7 +219,7 @@ window.addEventListener("keypress", (e) => {
 });
 
 const muteBtn = document.getElementById("mute-btn");
-muteBtn.onclick = (e) => {
+muteBtn.onclick = () => {
 	music.muted = !music.muted;
 
 	if (music.muted) {
@@ -276,4 +257,18 @@ if (ua.includes("Mobile")) {
 	systemInfo.innerHTML += "<br>mobile: true";
 } else {
 	systemInfo.innerHTML += "<br>mobile: false";
+}
+
+function enterCheat(...cheats) {
+	let cheat,
+		obj = {};
+
+	for (cheat of cheats) {
+		obj[cheat] = true;
+	}
+
+	localStorage.setItem("noobyone-cheat", JSON.stringify(obj));
+
+	console.log(`Cheat(s) entered.`);
+	console.table(obj);
 }
