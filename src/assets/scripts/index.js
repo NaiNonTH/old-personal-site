@@ -1,3 +1,5 @@
+let i;
+
 localStorage.removeItem("noobyone-cheat");
 
 const html = document.documentElement;
@@ -9,14 +11,18 @@ function toggleRootClass(className) {
 		html.classList.remove(className);
 		content.contentDocument.documentElement.classList.remove(className);
 		localStorage.removeItem("noobyone-" + className);
+
+		document.getElementById(className + "-input").checked = false;
 	} else {
 		html.classList.add(className);
 		content.contentDocument.documentElement.classList.add(className);
 		localStorage.setItem("noobyone-" + className, true);
+
+		document.getElementById(className + "-input").checked = true;
 	}
 	updateContentHeight();
 }
-function loadSettings(target, ...classNames) {
+function loadSettings(target, fromRoot, ...classNames) {
 	let className, storage;
 
 	for (className of classNames) {
@@ -24,19 +30,32 @@ function loadSettings(target, ...classNames) {
 
 		if (storage) {
 			target.classList.add(className);
+
+			if (fromRoot) {
+				document.getElementById(className + "-input").checked = true;
+			}
 		}
 	}
 }
 
-loadSettings(html, "lowercase-only", "dyslexia-font", "no-blurs");
+loadSettings(
+	html,
+	true,
+	"lowercase-only",
+	"dyslexia-font",
+	"no-blurs",
+	"no-animation",
+);
 
-const lowercaseBtn = document.getElementById("lowercase-only-btn");
-const dyslexiaBtn = document.getElementById("dyslexia-font-btn");
-const backdropBlurBtn = document.getElementById("no-blurs-btn");
+const lowercaseInput = document.getElementById("lowercase-only-input");
+const dyslexiaInput = document.getElementById("dyslexia-font-input");
+const backdropBlurInput = document.getElementById("no-blurs-input");
+const animationInput = document.getElementById("no-animation-input");
 
-lowercaseBtn.onclick = () => toggleRootClass("lowercase-only");
-dyslexiaBtn.onclick = () => toggleRootClass("dyslexia-font");
-backdropBlurBtn.onclick = () => toggleRootClass("no-blurs");
+lowercaseInput.onchange = () => toggleRootClass("lowercase-only");
+dyslexiaInput.onchange = () => toggleRootClass("dyslexia-font");
+backdropBlurInput.onchange = () => toggleRootClass("no-blurs");
+animationInput.onchange = () => toggleRootClass("no-animation");
 
 function updateContentHeight() {
 	content.height = 0;
@@ -47,9 +66,11 @@ content.onload = () => {
 	main.classList.remove("loading");
 	loadSettings(
 		content.contentDocument.documentElement,
+		false,
 		"lowercase-only",
 		"dyslexia-font",
 		"no-blurs",
+		"no-animation",
 	);
 
 	updateContentHeight();
@@ -58,7 +79,6 @@ content.onload = () => {
 		main.classList.add("loading");
 	};
 };
-onresize = () => updateContentHeight();
 
 const splashTexts = [
 	"Blazingly fast 🚀⚡️🚀⚡️",
@@ -257,6 +277,7 @@ if (ua.includes("Mobile")) {
 	systemInfo.innerHTML += "<br>mobile: true";
 } else {
 	systemInfo.innerHTML += "<br>mobile: false";
+	onresize = updateContentHeight;
 }
 
 function enterCheat(...cheats) {

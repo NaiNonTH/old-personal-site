@@ -10,40 +10,38 @@
 			href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Orbitron:wght@700&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="assets/scripts/not_found/init.js"></script>
+		<!-- <script src="assets/scripts/not_found/init.js"></script> -->
 		<title>nooby.one</title>
+		<style>
+			html {
+				filter: grayscale(1);
+			}
+			section {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				width: 100%;
+				max-width: 40rem;
+				transform: translate(-50%, -50%);
+
+				text-align: center;
+			}
+			a {
+				filter: grayscale(1);
+			}
+		</style>
 	</head>
 	<body>
-		<noscript>
-			<style>
-				html {
-					filter: grayscale(1);
-				}
-				section {
-					position: fixed;
-					top: 50%;
-					left: 50%;
-					width: 100%;
-					max-width: 40rem;
-					transform: translate(-50%, -50%);
-	
-					text-align: center;
-				}
-				a {
-					filter: grayscale(1);
-				}
-			</style>
-			<section>
-				<h1>
-					<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
-						>404</a
-					>
-				</h1>
-				<p>Page not found.</p>
-				<p>
-					<a href="index.html">Home</a>
-				</p>
-			</section>
-		</noscript>
+		<section>
+			<h1>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+					>404</a
+				>
+			</h1>
+			<p>Page not found.</p>
+			<p>
+				<a href="index.html">Home</a>
+			</p>
+		</section>
 	</body>
 </html>

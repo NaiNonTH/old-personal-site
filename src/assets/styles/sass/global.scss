@@ -61,9 +61,20 @@ html {
 		letter-spacing: 0.1em;
 		line-height: 1.5rem;
 	}
-	&.no-blurs * {
-		-webkit-backdrop-filter: none !important;
-		backdrop-filter: none !important;
+	&.no-blurs {
+		*,
+		*::before,
+		*::after {
+			-webkit-backdrop-filter: none !important;
+			backdrop-filter: none !important;
+		}
+	}
+	&.no-animation {
+		*,
+		*::before,
+		*::after {
+			animation: none !important;
+		}
 	}
 }
 section {
@@ -86,7 +97,7 @@ ul {
 	padding: 0;
 
 	li {
-		margin-bottom: 0.5rem;
+		margin: 0.5rem 0;
 		padding-left: 1.5rem;
 		position: relative;
 
@@ -105,7 +116,7 @@ p {
 }
 a {
 	@extend %interactives;
-	
+
 	text-decoration: none;
 	border-bottom: 1px solid currentColor;
 	cursor: var(--cursor-pointer);
@@ -157,14 +168,58 @@ input[type="range"] {
 		background: rgba(var(--bg-secondary));
 	}
 	&:is(:focus-visible, :hover):not([disabled])::-webkit-slider-thumb {
-		border: 2px solid rgba(var(--cl-heading-secondary));
+		border-color: rgba(var(--cl-heading-secondary));
 		background: rgba(var(--cl-interactives));
 	}
 	&[disabled] {
 		opacity: 0.25;
 	}
 }
-input:is([type="button"], [type="submit"], [type="range"]),
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	position: relative;
+	width: 1.5rem;
+	height: 1rem;
+	background: rgba(var(--bg-secondary));
+	border: 2px solid rgba(var(--cl-interactives));
+
+	&:hover {
+		border-color: rgba(var(--cl-heading-secondary));
+	}
+	&:active {
+		border-color: rgba(var(--cl-paragraph-secondary));
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0.1rem;
+		bottom: 0.1rem;
+		left: 0.1rem;
+		width: 0.4rem;
+		background: rgba(var(--cl-paragraph-secondary));
+	}
+	&:checked {
+		border-color: rgba(var(--cl-heading-secondary));
+		background: rgba(var(--cl-interactives));
+
+		&:hover {
+			border-color: rgba(var(--cl-interactives));
+			background: rgba(var(--cl-heading-secondary));
+		}
+		&:active {
+			border-color: rgba(var(--cl-paragraph-secondary));
+		}
+		&::after {
+			left: unset;
+			right: 0.1rem;
+		}
+	}
+}
+label,
+input:is([type="button"], [type="submit"], [type="range"], [type="checkbox"]),
 button,
 select {
 	cursor: var(--cursor-default);
@@ -194,13 +249,34 @@ textarea {
 	outline: 1px dashed rgba(var(--cl-paragraph-secondary));
 }
 table {
+	max-height: fit-content;
 	margin: 0 auto;
 	border-collapse: collapse;
 
-	tr {
-		&:nth-child(even) {
-			background: rgba(var(--bg-secondary), 0.95);
+	&.layout {
+		:is(td, th) {
+			background: none;
+			border: none;
+			padding: 0.3rem 0.5rem;
 		}
+		th {
+			padding-left: 0;
+		}
+		td {
+			padding-right: 0;
+		}
+		tr:first-child :is(th, td) {
+			padding-top: 0;
+		}
+		tr:last-child :is(th, td) {
+			padding-bottom: 0;
+		}
+		th {
+			text-align: left;
+		}
+	}
+	&:not(.layout) tr:nth-child(even) {
+		background: rgba(var(--bg-secondary), 0.5);
 	}
 	th {
 		font-size: 1.125rem;

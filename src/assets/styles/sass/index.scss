@@ -9,7 +9,7 @@ body {
 	grid-template-columns: 12rem 40rem 12rem;
 	grid-template-areas:
 		"l m r"
-		"b f .";
+		"b f i";
 	gap: 1rem;
 
 	@media screen and (min-width: 68rem) {
@@ -20,10 +20,10 @@ body {
 		grid-template-rows: auto;
 		grid-template-areas:
 			"l"
-			"b"
 			"m"
 			"r"
-			"f";
+			"f"
+			"b";
 	}
 }
 header {
@@ -161,8 +161,14 @@ footer {
 		padding: 1rem;
 	}
 }
-#settings div * {
-	margin-bottom: 0.5rem;
+#settings div {
+	display: grid;
+	column-gap: 0.5rem;
+	grid-template-columns: 1fr auto;
+
+	* {
+		margin-bottom: 0.5rem;
+	}
 }
 #navigation nav {
 	margin: 0.25rem 0 0.5rem;
@@ -250,7 +256,7 @@ footer {
 	margin: auto;
 	width: 8rem;
 	height: 8rem;
-	
+
 	.avatar {
 		position: absolute;
 		inset: 0;
@@ -453,10 +459,7 @@ footer {
 	justify-content: center;
 	align-items: center;
 }
-:is(
-	#loop-btn.loop,
-	#mute-btn.muted span
-)::before {
+:is(#loop-btn.loop, #mute-btn.muted span)::before {
 	content: "";
 	background: currentColor;
 	width: 2px;

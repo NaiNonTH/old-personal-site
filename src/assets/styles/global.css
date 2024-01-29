@@ -93,9 +93,16 @@ html.dyslexia-font {
   letter-spacing: 0.1em;
   line-height: 1.5rem;
 }
-html.no-blurs * {
+html.no-blurs *,
+html.no-blurs *::before,
+html.no-blurs *::after {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+html.no-animation *,
+html.no-animation *::before,
+html.no-animation *::after {
+  animation: none !important;
 }
 
 .dyslexia-font h1 {
@@ -158,7 +165,7 @@ ul {
   padding: 0;
 }
 ul li {
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
   padding-left: 1.5rem;
   position: relative;
 }
@@ -224,14 +231,56 @@ input[type=range]::-webkit-slider-thumb {
   background: rgba(var(--bg-secondary));
 }
 input[type=range]:is(:focus-visible, :hover):not([disabled])::-webkit-slider-thumb {
-  border: 2px solid rgba(var(--cl-heading-secondary));
+  border-color: rgba(var(--cl-heading-secondary));
   background: rgba(var(--cl-interactives));
 }
 input[type=range][disabled] {
   opacity: 0.25;
 }
 
-input:is([type=button], [type=submit], [type=range]),
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 1.5rem;
+  height: 1rem;
+  background: rgba(var(--bg-secondary));
+  border: 2px solid rgba(var(--cl-interactives));
+}
+input[type=checkbox]:hover {
+  border-color: rgba(var(--cl-heading-secondary));
+}
+input[type=checkbox]:active {
+  border-color: rgba(var(--cl-paragraph-secondary));
+}
+input[type=checkbox]::after {
+  content: "";
+  position: absolute;
+  top: 0.1rem;
+  bottom: 0.1rem;
+  left: 0.1rem;
+  width: 0.4rem;
+  background: rgba(var(--cl-paragraph-secondary));
+}
+input[type=checkbox]:checked {
+  border-color: rgba(var(--cl-heading-secondary));
+  background: rgba(var(--cl-interactives));
+}
+input[type=checkbox]:checked:hover {
+  border-color: rgba(var(--cl-interactives));
+  background: rgba(var(--cl-heading-secondary));
+}
+input[type=checkbox]:checked:active {
+  border-color: rgba(var(--cl-paragraph-secondary));
+}
+input[type=checkbox]:checked::after {
+  left: unset;
+  right: 0.1rem;
+}
+
+label,
+input:is([type=button], [type=submit], [type=range], [type=checkbox]),
 button,
 select {
   cursor: var(--cursor-default);
@@ -258,11 +307,32 @@ textarea:focus {
 }
 
 table {
+  max-height: fit-content;
   margin: 0 auto;
   border-collapse: collapse;
 }
-table tr:nth-child(even) {
-  background: rgba(var(--bg-secondary), 0.95);
+table.layout :is(td, th) {
+  background: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+}
+table.layout th {
+  padding-left: 0;
+}
+table.layout td {
+  padding-right: 0;
+}
+table.layout tr:first-child :is(th, td) {
+  padding-top: 0;
+}
+table.layout tr:last-child :is(th, td) {
+  padding-bottom: 0;
+}
+table.layout th {
+  text-align: left;
+}
+table:not(.layout) tr:nth-child(even) {
+  background: rgba(var(--bg-secondary), 0.5);
 }
 table th {
   font-size: 1.125rem;
