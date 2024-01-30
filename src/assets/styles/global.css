@@ -104,6 +104,13 @@ html.no-animation *::before,
 html.no-animation *::after {
   animation: none !important;
 }
+html.no-animation .marquee {
+  width: 100%;
+  padding: 0;
+}
+html.no-animation .marquee-parent {
+  overflow-x: auto;
+}
 
 .dyslexia-font h1 {
   font-family: var(--dyslexia-font);
@@ -367,6 +374,34 @@ table td {
 }
 .flex-column > * {
   flex-grow: 1;
+}
+
+.marquee {
+  --multiplier: 1;
+  display: block;
+  white-space: nowrap;
+  padding-left: 100%;
+  width: fit-content;
+  animation: marquee calc(10s / var(--multiplier)) linear infinite forwards;
+}
+@keyframes marquee {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(-100%);
+  }
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+.marquee-parent {
+  overflow-x: hidden;
+}
+
+*[data-tooltip]::before {
+  content: "!";
+  padding: 0 0.5rem;
 }
 
 *::-webkit-scrollbar {

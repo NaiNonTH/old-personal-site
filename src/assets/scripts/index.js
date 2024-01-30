@@ -55,7 +55,10 @@ const animationInput = document.getElementById("no-animation-input");
 lowercaseInput.onchange = () => toggleRootClass("lowercase-only");
 dyslexiaInput.onchange = () => toggleRootClass("dyslexia-font");
 backdropBlurInput.onchange = () => toggleRootClass("no-blurs");
-animationInput.onchange = () => toggleRootClass("no-animation");
+animationInput.onchange = () => {
+	toggleRootClass("no-animation");
+	setupMarquee();
+};
 
 function updateContentHeight() {
 	content.height = 0;
@@ -105,42 +108,13 @@ const splashTexts = [
 
 document
 	.getElementById("splash-message")
-	.getElementsByTagName("marquee")[0].innerHTML =
+	.getElementsByTagName("p")[0].innerHTML =
 	splashTexts[Math.floor(Math.random() * splashTexts.length)];
-
-const allMarquee = document.getElementsByTagName("marquee");
-
-for (i = 0; i < allMarquee.length; i++) {
-	allMarquee[i].onmouseenter = (e) => e.target.stop();
-	allMarquee[i].onmouseleave = (e) => e.target.start();
-}
 
 const clock = document.getElementById("clock");
 const secondHand = document.getElementById("second-hand");
 const minuteHand = document.getElementById("minute-hand");
 const hourHand = document.getElementById("hour-hand");
-
-let dmy, seconds, minutes;
-
-dmy = new Date();
-
-seconds = dmy.getSeconds();
-secondHand.style.setProperty(
-	"--rotate",
-	(seconds + dmy.getMilliseconds() / 1000) * 6 + "deg",
-);
-
-minutes = dmy.getMinutes();
-minuteHand.style.setProperty("--rotate", (minutes + seconds / 60) * 6 + "deg");
-
-hourHand.style.setProperty(
-	"--rotate",
-	(dmy.getHours() - 12 + minutes / 60) * 30 + "deg",
-);
-
-document.getElementById("reloadIframe").onclick = () => {
-	content.contentWindow.location.reload();
-};
 
 let songIndex = 0;
 
@@ -293,3 +267,45 @@ function enterCheat(...cheats) {
 	console.log(`Cheat(s) entered.`);
 	console.table(obj);
 }
+
+const marquees = document.getElementsByClassName("marquee");
+let marquee;
+
+function setupMarquee() {
+	for (i = 0; i < marquees.length; i++) {
+		marquee = marquees[i];
+		marquee.style.setProperty(
+			"--multiplier",
+			(marquee.parentElement.offsetWidth * 2) / marquee.offsetWidth,
+		);
+		marquee.parentElement.classList.add("marquee-parent");
+	}
+}
+setupMarquee();
+
+let dmy, seconds, minutes;
+
+setInterval(() => {
+	dmy = new Date();
+
+	seconds = dmy.getSeconds();
+	secondHand.style.setProperty(
+		"--rotate",
+		(seconds + dmy.getMilliseconds() / 1000) * 6 + "deg",
+	);
+
+	minutes = dmy.getMinutes();
+	minuteHand.style.setProperty(
+		"--rotate",
+		(minutes + seconds / 60) * 6 + "deg",
+	);
+
+	hourHand.style.setProperty(
+		"--rotate",
+		(dmy.getHours() - 12 + minutes / 60) * 30 + "deg",
+	);
+
+	document.getElementById("reloadIframe").onclick = () => {
+		content.contentWindow.location.reload();
+	};
+}, 40);

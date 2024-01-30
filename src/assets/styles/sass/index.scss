@@ -224,7 +224,6 @@ footer {
 	align-items: center;
 
 	grid-area: b;
-	overflow: hidden;
 	padding: 0;
 
 	@media screen and (max-width: 68rem) {
@@ -312,7 +311,6 @@ footer {
 
 	width: 3px;
 	z-index: 4;
-	animation: clockHandSpin 60s linear infinite;
 
 	&::after {
 		height: 100%;
@@ -324,7 +322,6 @@ footer {
 
 	width: 6px;
 	z-index: 3;
-	animation: clockHandSpin 3600s linear infinite;
 
 	&::after {
 		height: 85%;
@@ -336,7 +333,6 @@ footer {
 	z-index: 2;
 
 	width: 10px;
-	animation: clockHandSpin 86400s linear infinite;
 
 	&::after {
 		height: 55%;
@@ -483,12 +479,4 @@ footer {
 	text-align: right;
 	opacity: 0.75;
 	pointer-events: none;
-}
-@keyframes clockHandSpin {
-	from {
-		transform: translate(-50%) rotate(calc(var(--rotate)));
-	}
-	to {
-		transform: translate(-50%) rotate(calc(var(--rotate) + 1turn));
-	}
 }
