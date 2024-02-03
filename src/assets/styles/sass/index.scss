@@ -230,6 +230,24 @@ footer {
 		margin: 0 1rem;
 		padding: 1rem 0;
 	}
+
+	.marquee a {
+		--index-x: 0;
+		--index-y: 0;
+
+		display: inline-block;
+		width: 88px;
+		height: 31px;
+		background-image: url(../images/buttons-sprite.png);
+		background-position-x: calc(-88px * var(--index-x));
+		background-position-y: calc(-31px * var(--index-y));
+		border: none;
+		transition: filter 0.2s;
+
+		&:hover {
+			filter: brightness(1.2);
+		}
+	}
 }
 #status {
 	.overall {

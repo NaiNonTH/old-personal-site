@@ -345,11 +345,15 @@ table {
 			transform: translate(-100%);
 		}
 	}
-	&:hover {
-		animation-play-state: paused;
-	}
 	&-parent {
-		overflow-x: hidden;
+		overflow-x: auto;
+
+		&[noscroll] {
+			overflow-x: hidden;
+		}
+		&:hover .marquee {
+			animation-play-state: paused;
+		}
 	}
 }
 *[data-tooltip]::before {

@@ -392,11 +392,14 @@ table td {
     transform: translate(-100%);
   }
 }
-.marquee:hover {
-  animation-play-state: paused;
-}
 .marquee-parent {
+  overflow-x: auto;
+}
+.marquee-parent[noscroll] {
   overflow-x: hidden;
+}
+.marquee-parent:hover .marquee {
+  animation-play-state: paused;
 }
 
 *[data-tooltip]::before {

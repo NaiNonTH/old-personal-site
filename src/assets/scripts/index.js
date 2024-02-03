@@ -279,6 +279,7 @@ function setupMarquee() {
 			(marquee.parentElement.offsetWidth * 2) / marquee.offsetWidth,
 		);
 		marquee.parentElement.classList.add("marquee-parent");
+		marquee.parentElement.onmouseleave = (e) => e.target.scrollLeft = 0;
 	}
 }
 setupMarquee();
